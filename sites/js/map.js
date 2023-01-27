@@ -3,7 +3,7 @@ let map;
 function initMap() {
     var x= new XMLHttpRequest();
     //prepare request 
-    x.open("GET", "http://localhost/sites/controllers/siteController.php", true);
+    x.open("GET", "http://localhost/BajaBnB/sites/controllers/siteController.php", true);
     x.send();
     //handle ready stage request
     x.onreadystatechange = function(){

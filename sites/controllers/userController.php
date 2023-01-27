@@ -4,7 +4,7 @@
     //allow methods
     header('Access-Control-Methods: GET, POST, PUT, DELETE');
 
-    require_once($_SERVER['DOCUMENT_ROOT'].'/sites/models/user.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/BajaBnB/sites/models/user.php');
     
     // GET ( read the data from the database)
     if ($_SERVER['REQUEST_METHOD'] == 'GET'){
