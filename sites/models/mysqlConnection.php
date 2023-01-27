@@ -7,7 +7,7 @@
         //METHODS
         public static function getConnection(){
             //open config file
-            $configPath = $_SERVER['DOCUMENT_ROOT'].'/sites/config/mysqlConnection.json';
+            $configPath = $_SERVER['DOCUMENT_ROOT'].'/BajaBnB/sites/config/mysqlConnection.json';
             $configData = json_decode(file_get_contents($configPath), true);
             //check parameters
             if(isset($configData['server'])){
