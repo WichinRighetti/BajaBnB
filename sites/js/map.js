@@ -1,4 +1,4 @@
-let map;
+
 
 function initMap() {
     var x= new XMLHttpRequest();
@@ -24,18 +24,16 @@ function showMap(data){
                   lng: -115.473 },
         zoom: 15,
       });
-      console.log(pointer);
     for(var i = 0; i < pointer.length ; i++){
-        console.log(pointer[i]);
         var marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: {lat: pointer[i].Lat, 
                    lng: pointer[i].Long },
         draggable: false,
-        title: pointer[i].Description
+        title: pointer[i].Description,
         });
         marker.setMap(map);
     }  
 } 
 
-window.initMap = initMap;
+//window.initMap = initMap;
