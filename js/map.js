@@ -7,7 +7,7 @@ function initMap() {
     //create request
     var x = new XMLHttpRequest();
     //prepare request
-    x.open('GET', 'http://localhost/Sites1/controllers/PropertyController.php?id=' + id, true);
+    x.open('GET', 'http://localhost/BAJABN/controllers/PropertyController.php?id=' + id, true);
     //send request
     x.send();
     //handle ready state change event

@@ -4,7 +4,7 @@
         // return a MYSQL connection object
         public static function getConnection(){ //Para un metodo estatico no es necesario delcarar la clase
             //Open Config file //$_Server toma la ruta del servidor el punto '.' es para concatenar 2 rutas ej. ruta1.ruta2 da como resultado ruta1ruta2
-            $configPath = $_SERVER['DOCUMENT_ROOT'].'/sites1/config/mysqlConnection.json';
+            $configPath = $_SERVER['DOCUMENT_ROOT'].'/BAJABN/config/mysqlConnection.json';
             $configData = json_decode(file_get_contents($configPath), true); //Convierte en texto plano
             //Check parameters
             if(isset($configData['server'])){//isset revisa si la variable esta asignada

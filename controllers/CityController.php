@@ -4,7 +4,7 @@
     //Allow methods
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE'); //Read, inster, update, delete
 
-    require_once($_SERVER['DOCUMENT_ROOT'].'/Sites1/models/City.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/BAJABN/models/City.php');
 
     //GET reaad
     if($_SERVER['REQUEST_METHOD'] == "GET"){
