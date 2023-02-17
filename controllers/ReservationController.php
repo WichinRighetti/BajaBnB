@@ -4,7 +4,7 @@
     //Allow methods
     header('Access-Control-Methods: GET, POST, PUT, DELETE');
 
-    require_once($_SERVER['DOCUMENT_ROOT'].'/BAJABN/models/Reservation.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/BajaBnB/models/Reservation.php');
 
     //get (read)
     if($_SERVER['REQUEST_METHOD'] == 'GET'){

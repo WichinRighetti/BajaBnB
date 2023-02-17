@@ -4,7 +4,7 @@
     //Allow methods
     header('Access-Control-Methods: GET, POST, PUT, DELETE');
 
-    require_once($_SERVER['DOCUMENT_ROOT'].'/ByB/models/propertyType.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/BajaBnB/models/propertyType.php');
 
     //get (read)
     if($_SERVER['REQUEST_METHOD'] == 'GET'){

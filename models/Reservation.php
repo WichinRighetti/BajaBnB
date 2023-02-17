@@ -44,8 +44,8 @@
                 //get connection
                 $connection = MysqlConnection::getConnection();
                 //query
-                $query = "Select u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive
-                p.id_property, p.propertyName, p.propertyDescription, p.id_propertyType, p.id_city, p.id_user, p.longitude, p.latitude, p.price, p.active propertyActive
+                $query = "Select u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
+                p.id_property, p.propertyName, p.propertyDescription, p.id_propertyType, p.id_city, p.id_user, p.longitude, p.latitude, p.price, p.active propertyActive,
                 r.id_reservation, r.startDate, r.endDate
                 from reservation r 
                 Left JOIN User u ON r.Id_user = u.id_user 
@@ -59,13 +59,15 @@
                 //execute
                 $command->execute();
                 //bind results
-                $command->bind_result($id_reservation, $user, $property, $startDate, $endDate, $id_userType, $userType, $userTypeActive, $password, $active);
+                $command->bind_result($id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive,
+                    $id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, $longitude, $latitude, $price, $propertyActive,
+                    $id_reservation, $startDate, $endDate);
                 //reconrd was found
                 if($command->fetch()){
                     //pass values to the attributes
                     $this->id_reservation = $id_reservation;
-                    $this->user = new User();
-                    $this->property = new Property();
+                    $this->user = new User($id_user, $name, $lastname, $phone, $email, new UserType($id_userType, $userType, $userTypeActive), $password, $userActive);
+                    $this->property = new Property($id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, $longitude, $latitude, $price, $propertyActive);
                     $this->startDate = $startDate;
                     $this->endDate = $endDate;
                     //$this->active = $active;
@@ -79,7 +81,7 @@
                 $connection->close();
             }
             //constructor with data from database
-            if(func_num_args()==7){
+            if(func_num_args()==5){
                 //get arguments
                 $arguments = func_get_args();
                 //pass arguments to attibutes
@@ -88,9 +90,7 @@
                 $this->property = $arguments[2];
                 $this->startDate = $arguments[3];
                 $this->endDate = $arguments[4];
-                $this->userType = $arguments[5];
-                $this->password = $arguments[6];
-                //$this->active = $arguments[7];
+                //$this->active = $arguments[5];
 
             }
         }
@@ -99,13 +99,10 @@
         public function toJson(){
             return json_encode(array(
                 'id_reservation'=>$this->id_reservation,
-                'user'=>$this->user,
-                'property'=>$this->property,
+                'user'=>json_decode($this->user->toJson()),
+                'property'=>json_decode($this->property->toJson()),
                 'startDate'=>$this->startDate,
-                'endDate'=>$this->endDate,
-                'userType'=>json_decode($this->userType->toJson()),
-                'password'=>$this->password,
-                'active'=>$this->active
+                'endDate'=>$this->endDate
             ));
         }
 
@@ -116,18 +113,27 @@
             //get connection
             $connection = MysqlConnection::getConnection();
             //query
-            $query = "Select u.id_reservation, u>user, u.lastName, u.startDate, u.endDate, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active
-            from User u left Join UserType ut ON u.id_UserType = ut.id_userType;";
+            $query = "Select u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
+            p.id_property, p.propertyName, p.propertyDescription, p.id_propertyType, p.id_city, p.id_user, p.longitude, p.latitude, p.price, p.active propertyActive,
+            r.id_reservation, r.startDate, r.endDate
+            from reservation r 
+            Left JOIN User u ON r.Id_user = u.id_user 
+            left Join UserType ut ON u.id_UserType = ut.id_userType 
+            Left Join Property p ON r.id_property = p.id_property;";
             //command
             $command = $connection->prepare($query);
             //execute
             $command->execute();
             //bind results
-            $command->bind_result($id_reservation, $user, $property, $startDate, $endDate, $id_userType, $userType, $userTypeActive, $password, $active);
+            $command->bind_result($id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive,
+                $id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, $longitude, $latitude, $price, $propertyActive,
+                $id_reservation, $startDate, $endDate);
             //fetch data
             while($command->fetch()){
                 $userType = new UserType($id_userType, $userType, $userTypeActive);
-                array_push($list, new User($id_reservation, $user, $property, $startDate, $endDate, $userType, $password, $active));
+                $user = new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive);
+                $property = new Property($id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, $longitude, $latitude, $price, $propertyActive);
+                array_push($list, new User($id_reservation, $user, $property, $startDate, $endDate));
             }
             //close command
             mysqli_stmt_close($command);
