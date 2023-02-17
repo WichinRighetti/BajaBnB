@@ -2,9 +2,9 @@
     //Alow acces from outside the server
     header('Access-Control-Allow-origin: *');
     //Allow methods
-    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE'); //Read, inster, update, delete
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE'); //Read, instert, update, delete
 
-    require_once($_SERVER['DOCUMENT_ROOT'].'/BAJABN/models/City.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/BAJABnB/models/City.php');
 
     //GET reaad
     if($_SERVER['REQUEST_METHOD'] == "GET"){
