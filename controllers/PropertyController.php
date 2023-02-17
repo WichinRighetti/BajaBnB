@@ -4,6 +4,7 @@
     //Allow methods
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE'); //Read, inster, update, delete
 
+
     require_once($_SERVER['DOCUMENT_ROOT'].'/BajaBnB/models/Property.php');
 
     //GET reaad
