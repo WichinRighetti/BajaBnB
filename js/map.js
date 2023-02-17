@@ -53,7 +53,7 @@ function showMap(data){
 
     var contentPopup = '<h2>' + marker.propertyName + '</h2>' +  
     '<h3>' + marker.propertyDescription + '</h3>' + 
-    '<img width=200 height=100 src=assets/images/image' + marker.id_property + '.jpg>';
+    '<img width=200 height=100 src=Client/assets/images/image' + marker.id_property + '.jpg>';
     var infoWindows = new google.maps.InfoWindow({
         content: contentPopup
     });
@@ -63,7 +63,7 @@ function showMap(data){
         position: {lat: marker.latitude, lng: marker.longitude},
         draggable: false,
         title: marker.description,
-        icon: 'assets/images/house.png'
+        icon: 'Client/assets/images/house.png'
     })
 
     marker.addListener('click', function(){
