@@ -17,9 +17,20 @@
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
+    <style>
+      #map {
+        height: 80%;
+      }
+      html,
+      body {
+        height: 80%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
   </head>
 
-  <body>
+  <body onload="getSites()">
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -97,31 +108,22 @@
 
     <div class="services">
       <div class="container">
-        <form action="#" id="contact">
-          <h3>ENCUENTRA </h3><h4>TU PROXIMO HOGAR</h4><br><br>
+          <h3>ENCUENTRA TU PROXIMO HOGAR</h3><br><br>
           <div class="row">
               <div class="col-md-6">
                   <div class="form-group">
                       <label>Estado:</label>
-           
                        <select class="form-control">
-                            <option value="">--All --</option>
-                            <option value="">--All --</option>
-                            <option value="">--All --</option>
-                            <option value="">--All --</option>
-                            <option value="">--All --</option>
+                            <option value="">Baja California</option>
                        </select>
                   </div>
               </div>
 
               <div class="col-md-6">
-                  <div class="form-group">
+                  <div  class="form-group">
                       <label>Ciudad:</label>
-           
-                       <select class="form-control">
-                            <option value="">-- All --</option>
-                            <option value="">House</option>
-                            <option value="">Apartment</option>
+                       <select class="form-control" id="cbSites" onchange="initMap()">
+                        <option value="0">Ciudad</option>
                        </select>
                   </div>
               </div>
@@ -135,7 +137,9 @@
           </div>
           <br>
           <br>
-      </form>
+
+              <div id="map"></div>
+              <br><br>
 
         <div class="row">
           <div class="col-md-4">
@@ -227,8 +231,13 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+    defer></script>
     <!-- Additional Scripts -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
     <script src="assets/js/custom.js"></script>
     <script src="assets/js/owl.js"></script>
     <script src="assets/js/slick.js"></script>
