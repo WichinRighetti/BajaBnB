@@ -35,6 +35,27 @@
       <nav class="navbar navbar-expand-lg">
         <div class="container">
           <a class="navbar-brand" href="index.html"><h2>Baja <em> BNB</em></h2></a>
+          <!-- <a href="" class="filled-button">login</a> -->
+          <!-- Login HTML code by JMGG 02/16/2023 -->
+          <button id="show-login">login</button>
+          <div class="popup">
+            <div class="close-btn">&times;</div>
+            <div class="form">
+              <h2>Log in</h2>
+              <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+              </div>
+              <div class="form-element">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter password">
+              </div>
+              <br>
+              <div class="form-element">
+                <button class="button">Sign in</button>
+              </div>
+            </div>  
+          </div>
         </div>
       </nav>
     </header>
@@ -212,6 +233,8 @@
     <script src="assets/js/owl.js"></script>
     <script src="assets/js/slick.js"></script>
     <script src="assets/js/accordions.js"></script>
+    <!-- Added login JS code by JMGG 02/16/2023-->
+    <script src="assets/js/login.js"></script>
 
     <script language = "text/Javascript"> 
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
