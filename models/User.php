@@ -62,7 +62,7 @@
                 //execute
                 $command->execute();
                 //bind results
-                $command->bind_result($id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $active);
+                $command->bind_result($id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $UserActive);
                 //reconrd was found
                 if($command->fetch()){
                     //pass values to the attributes
@@ -73,7 +73,7 @@
                     $this->email = $email;
                     $this->userType = new UserType($id_userType, $userType, $userTypeActive);
                     $this->password = $password;
-                    $this->active = $active;
+                    $this->active = $UserActive;
                 }else{
                     // throw exception if record not found
                     throw new RecordNotFoundException($id_user);
@@ -128,11 +128,11 @@
             //execute
             $command->execute();
             //bind results
-            $command->bind_result($id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $active);
+            $command->bind_result($id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive);
             //fetch data
             while($command->fetch()){
                 $userType = new UserType($id_userType, $userType, $userTypeActive);
-                array_push($list, new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $active));
+                array_push($list, new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive));
             }
             //close command
             mysqli_stmt_close($command);

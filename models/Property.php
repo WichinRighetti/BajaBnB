@@ -2,6 +2,11 @@
     //user files
     require_once('mysqlConnection.php');
     require_once('exceptions/recordNotFoundException.php');
+    require_once('PropertyType.php');
+    require_once('City.php');
+    require_once('State.php');
+    require_once('User.php');
+    require_once('UserType.php');
 
     //Calse name
     Class Property{
@@ -9,9 +14,9 @@
         private $id_property;
         private $propertyName;
         private $propertyDescription;
-        private $id_propertyType;
-        private $id_city;
-        private $id_user;
+        private $PropertyType;
+        private $City;
+        private $User;
         private $longitude;
         private $latitude;
         private $price;
@@ -24,12 +29,12 @@
         public function getPropertyName(){ return $this->propertyName; }
         public function setPropertyDescription($value){$this->propertyDescription = $value; }
         public function getPropertuDescription(){ return $this->propertyDescription; }
-        public function setIdPropertyType($value){$this->id_propertyType = $value; }
-        public function getIdPropertyType(){ return $this->id_propertyType; }
-        public function setIdCity($value){$this->id_city = $value; }
-        public function getIdCity(){ return $this->id_city; }
-        public function setIdUser($value){$this->id_user = $value; }
-        public function getIdUser(){ return $this->id_user; }
+        public function setPropertyType($value){$this->PropertyType = $value; }
+        public function getPropertyType(){ return $this->PropertyType; }
+        public function setCity($value){$this->City = $value; }
+        public function getCity(){ return $this->City; }
+        public function setUser($value){$this->User = $value; }
+        public function getUser(){ return $this->User; }
         public function setLongitude($value){$this->longitude = $value; }
         public function getLongitude(){ return $this->longitude; }
         public function setLatitude($value){$this->latitude = $value; }
@@ -46,9 +51,9 @@
                 $this->id_property = 0;
                 $this->propertyName = '';
                 $this->propertyDescription = '';
-                $this->id_propertyType = 1;
-                $this->id_city = 0;
-                $this->id_user = 0;
+                $this->PropertyType = new PropertyType();
+                $this->City = new City();
+                $this->User = new User();
                 $this->longitude = 0;
                 $this->latitude = 0;
                 $this->price = 0;
@@ -61,8 +66,15 @@
                 //get connection
                 $connection = MysqlConnection::getConnection(); // "::" Para llamar la funcion estatica
                 //query
-                $query = "Select id_property, propertyName, propertyDescription, id_propertyType, id_city, id_user, 
-                longitude, latitude, price, active From Property Where id_property = ?";
+                $query = "Select p.id_property, p.propertyName, p.propertyDescription, p.longitude, p.latitude, p.price, p.active propertyActive,
+                    pt.id_propertyType, pt.propertyType, pt.active propertyTypeActive,
+                    c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive,
+                    u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive
+                    from Property p left Join PropertyType pt ON p.id_propertyType = pt.id_propertyType
+                    Left JOIN City c on p.id_city = c.id_city
+                    Left JOIN State s on c.id_state = s.id_state
+                    Left JOIN User u on p.id_user = u.id_user
+                    Left JOIN UserType ut on u.id_userType = ut.id_userType Where id_property = ?";
                 //command
                 $command = $connection->prepare($query);
                 //bind parameter
@@ -70,21 +82,25 @@
                 //execute
                 $command->execute();
                 //bind results
-                $command->bind_result($id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, 
-                $longitude, $latitude, $price, $active);
+                $command->bind_result($id_property, $propertyName, $propertyDescription, $longitude, $latitude, $price, $propertyActive,
+                    $id_propertyType, $propertyType, $propertyActive,
+                    $id_city, $cityName, $activeCity, $id_state, $stateName, $activeState,
+                    $id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive);
                 //Record was found
                 if($command->fetch()){
+                    $state = new State($id_state, $stateName, $activeState);
+                    $userType = new UserType($id_userType, $userType, $userTypeActive);
                     //pass values to the attributes
                     $this->id_property = $id_property;
                     $this->propertyName = $propertyName;
                     $this->propertyDescription = $propertyDescription;
-                    $this->id_propertyType = $id_propertyType;
-                    $this->id_city = $id_city;
-                    $this->id_user = $id_user;
+                    $this->PropertyType = new PropertyType($id_propertyType, $propertyType, $propertyActive);
+                    $this->City = new City($id_city, $cityName, $state, $activeCity);
+                    $this->User = new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive);
                     $this->longitude = $longitude;
                     $this->latitude = $latitude;
                     $this->price = $price;
-                    $this->active = $active;
+                    $this->active = $propertyActive;
                 }else{
                     //throw exception if record not found
                     throw new RecordNotFoundException($id);
@@ -102,9 +118,9 @@
                 $this->id_property = $arguments[0];
                 $this->propertyName = $arguments[1];
                 $this->propertyDescription = $arguments[2];
-                $this->id_propertyType = $arguments[3];
-                $this->id_city = $arguments[4];
-                $this->id_user = $arguments[5];
+                $this->PropertyType = $arguments[3];
+                $this->City = $arguments[4];
+                $this->User = $arguments[5];
                 $this->longitude = $arguments[6];
                 $this->latitude = $arguments[7];
                 $this->price = $arguments[8];
@@ -118,9 +134,9 @@
                 'id_property' => $this->id_property,
                 'propertyName' => $this->propertyName,
                 'propertyDescription' => $this->propertyDescription,
-                'idpropertyType' => $this->id_propertyType,
-                'id_city' => $this->id_city,
-                'id_user' => $this->id_user,
+                'propertyType' => json_decode($this->PropertyType->toJson()),
+                'city' => json_decode($this->City->toJson()),
+                'user' => json_decode($this->User->toJson()),
                 'longitude' => $this->longitude,
                 'latitude' => $this->latitude,
                 'price' => $this->price,
@@ -135,19 +151,33 @@
             //get connection
             $connection = MysqlConnection::getConnection(); // "::" Para llamar la funcion estatica
             //query
-            $query = "Select id_property, propertyName, propertyDescription, id_propertyType, id_city, id_user, 
-            longitude, latitude, price, active From Property";
+            $query = "Select p.id_property, p.propertyName, p.propertyDescription, p.longitude, p.latitude, p.price, p.active propertyActive,
+                pt.id_propertyType, pt.propertyType, pt.active propertyTypeActive,
+                c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive,
+                u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive
+                from Property p left Join PropertyType pt ON p.id_propertyType = pt.id_propertyType
+                Left JOIN City c on p.id_city = c.id_city
+                Left JOIN State s on c.id_state = s.id_state
+                Left JOIN User u on p.id_user = u.id_user
+                Left JOIN UserType ut on u.id_userType = ut.id_userType;";
             //command
             $command = $connection->prepare($query);
             //execute
             $command->execute();
             //bind results
-            $command->bind_result($id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, 
-            $longitude, $latitude, $price, $active);
+            $command->bind_result($id_property, $propertyName, $propertyDescription, $longitude, $latitude, $price, $propertyActive,
+                $id_propertyType, $propertyType, $propertyActive,
+                $id_city, $cityName, $activeCity, $id_state, $stateName, $activeState,
+                $id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive);
             //fetch data
             while($command->fetch()){
-                array_push($list, new Property($id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, 
-                $id_user, $longitude, $latitude, $price, $active));
+                $state = new State($id_state, $stateName, $activeState);
+                $userType = new UserType($id_userType, $userType, $userTypeActive);
+                $propertyType = new PropertyType($id_propertyType, $propertyType, $propertyActive);
+                $user = new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive);
+                $city = new City($id_city, $cityName, $state, $activeCity);
+                array_push($list, new Property($id_property, $propertyName, $propertyDescription, $propertyType, $city, 
+                $user, $longitude, $latitude, $price, $propertyActive));
             }
             //close command
             mysqli_stmt_close($command);

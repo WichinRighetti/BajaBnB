@@ -11,10 +11,10 @@
         private $active;
 
         //Setters and getters
-        public function setIdPropertyImage($value){$this->id_state = $value; }
-        public function getIdPropertyImage(){ return $this->id_state; }
-        public function setIdProperty($value){$this->stateName = $value; }
-        public function getIdProperty(){ return $this->stateName; }
+        public function setIdState($value){$this->id_state = $value; }
+        public function getIdState(){ return $this->id_state; }
+        public function setStateName($value){$this->stateName = $value; }
+        public function getStateName(){ return $this->stateName; }
         public function setActive($value){$this->active = $value; }
         public function getActive(){ return $this->active; }
         

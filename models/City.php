@@ -2,20 +2,23 @@
     //user files
     require_once('mysqlConnection.php');
     require_once('exceptions/recordNotFoundException.php');
+    require_once('State.php');
 
     //Calse name
     Class City{
         //attributes
         private $id_city;
         private $cityName;
-        private $id_state;
+        private $state;
         private $active;
 
         //Setters and getters
-        public function setIdProperty($value){$this->id_city = $value; }
-        public function getIdProperty(){ return $this->id_city; }
-        public function setPropertyName($value){$this->cityName = $value; }
-        public function getPropertyName(){ return $this->cityName; }
+        public function setIdCity($value){$this->id_city = $value; }
+        public function getIdCity(){ return $this->id_city; }
+        public function setCityName($value){$this->cityName = $value; }
+        public function getCityName(){ return $this->cityName; }
+        public function setState($value){$this->state = $value; }
+        public function getState(){ return $this->state; }
         public function setActive($value){$this->active = $value; }
         public function getActive(){ return $this->active; }
         
@@ -25,7 +28,7 @@
             if(func_num_args() == 0){
                 $this->id_city = 0;
                 $this->cityName = '';
-                $this->id_state = 0;
+                $this->state = new State();
                 $this->active = 0;
             }
             //Constructor with data from database
@@ -35,7 +38,8 @@
                 //get connection
                 $connection = MysqlConnection::getConnection(); // "::" Para llamar la funcion estatica
                 //query
-                $query = "Select id_city, cityName, id_state, active From City Where id_city = ?";
+                $query = "Select c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive 
+                    From City c Left JOIN State s ON c.id_state = s.id_state Where c.id_city = ?";
                 //command
                 $command = $connection->prepare($query);
                 //bind parameter
@@ -43,14 +47,14 @@
                 //execute
                 $command->execute();
                 //bind results
-                $command->bind_result($id_city, $cityName, $id_state, $active);
+                $command->bind_result($id_city, $cityName, $activeCity, $id_state, $stateName, $activeState);
                 //Record was found
                 if($command->fetch()){
                     //pass values to the attributes
                     $this->id_city = $id_city;
                     $this->cityName = $cityName;
-                    $this->id_state = $id_state;
-                    $this->active = $active;
+                    $this->state = new State($id_state, $stateName, $activeState);
+                    $this->active = $activeCity;
                 }else{
                     //throw exception if record not found
                     throw new RecordNotFoundException($id);
@@ -67,7 +71,7 @@
                 //pass arguments to attributes
                 $this->id_city = $arguments[0];
                 $this->cityName = $arguments[1];
-                $this->id_state = $arguments[2];
+                $this->state = $arguments[2];
                 $this->active = $arguments[3];
             }
         }
@@ -77,7 +81,7 @@
             return json_encode(array(
                 'id_city' => $this->id_city,
                 'cityName' => $this->cityName,
-                'id_state' => $this->id_state,
+                'state' => json_decode($this->state->toJson()),
                 'active' => $this->active
             ));
         }
@@ -89,16 +93,18 @@
             //get connection
             $connection = MysqlConnection::getConnection(); // "::" Para llamar la funcion estatica
             //query
-            $query = "Select id_city, cityName, id_state, active From City";
+            $query = "Select c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive 
+                From City c Left JOIN State s ON c.id_state = s.id_state";
             //command
             $command = $connection->prepare($query);
             //execute
             $command->execute();
             //bind results
-            $command->bind_result($id_city, $cityName, $id_state, $active);
+            $command->bind_result($id_city, $cityName, $activeCity, $id_state, $stateName, $activeState);
             //fetch data
             while($command->fetch()){
-                array_push($list, new City($id_city, $cityName, $id_state, $active));
+                $state = new State($id_state, $stateName, $activeState);
+                array_push($list, new City($id_city, $cityName, $state, $activeCity));
             }
             //close command
             mysqli_stmt_close($command);
