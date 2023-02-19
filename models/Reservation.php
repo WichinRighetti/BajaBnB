@@ -1,9 +1,13 @@
 <?php
     //use files
     require_once('mysqlConnection.php');
+    require_once('exceptions/recordNotFoundException.php');
+    require_once('PropertyType.php');
+    require_once('City.php');
+    require_once('State.php');
+    require_once('User.php');
     require_once('UserType.php');
     require_once('Property.php');
-    require_once('exceptions/recordNotFoundException.php');
 
     class Reservation{
         //attributes
@@ -44,14 +48,21 @@
                 //get connection
                 $connection = MysqlConnection::getConnection();
                 //query
-                $query = "Select u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
-                p.id_property, p.propertyName, p.propertyDescription, p.id_propertyType, p.id_city, p.id_user, p.longitude, p.latitude, p.price, p.active propertyActive,
-                r.id_reservation, r.startDate, r.endDate
-                from reservation r 
-                Left JOIN User u ON r.Id_user = u.id_user 
-                left Join UserType ut ON u.id_UserType = ut.id_userType 
-                Left Join Property p ON r.id_property = p.id_property
-                where r.id_reservation = ?;";
+                $query = "Select r.id_reservation, r.startDate, r.endDate, 
+                    p.id_property, p.propertyName, p.propertyDescription, p.longitude, p.latitude, p.price, p.active propertyActive,
+                    pt.id_propertyType, pt.propertyType, pt.active propertyTypeActive,
+                    c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive,
+                    u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
+                    uh.id_user, uh.name, uh.lastName, uh.phone, uh.email, uth.id_userType, uth.userType, uth.active userHTypeActive, uh.password, uh.active userHActive
+                    from Reservation r Left JOIN Property p ON r.id_property = p.id_property
+                    left Join PropertyType pt ON p.id_propertyType = pt.id_propertyType
+                    Left JOIN City c ON p.id_city = c.id_city
+                    Left JOIN State s ON c.id_state = s.id_state
+                    Left JOIN User u ON r.id_user = u.id_user
+                    Left JOIN User uh ON p.id_user = uh.id_user
+                    Left JOIN UserType ut ON u.id_userType = ut.id_userType
+                    Left JOIN UserType uth ON uh.id_userType = uth.id_userType
+                    where r.id_reservation = ?;";
                 //command
                 $command = $connection->prepare($query);
                 //bind parameter
@@ -59,15 +70,26 @@
                 //execute
                 $command->execute();
                 //bind results
-                $command->bind_result($id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive,
-                    $id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, $longitude, $latitude, $price, $propertyActive,
-                    $id_reservation, $startDate, $endDate);
+                $command->bind_result($id_reservation, $startDate, $endDate,
+                $id_property, $propertyName, $propertyDescription, $longitude, $latitude, $price, $propertyActive,
+                $id_propertyType, $propertyType, $propertyTypeActive,
+                $id_city, $cityName, $activeCity, $id_state, $stateName, $activeState,
+                $id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive,
+                $id_userH, $nameH, $lastnameH, $phoneH, $emailH, $id_userHType, $userHType, $userHTypeActive, $passwordH, $userHActive);
                 //reconrd was found
                 if($command->fetch()){
+                    $state = new State($id_state, $stateName, $activeState);
+                    $userType = new UserType($id_userType, $userType, $userTypeActive);
+                    $userHType = new UserType($id_userHType, $userHType, $userHTypeActive);
+                    $propertyType = new PropertyType($id_propertyType, $propertyType, $propertyTypeActive);
+                    $city = new City($id_city, $cityName, $state, $activeCity);
+                    $user = new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive);
+                    $userH = new User($id_userH, $nameH, $lastnameH, $phoneH, $emailH, $userHType, $passwordH, $userHActive);
+                    $property = new Property($id_property, $propertyName, $propertyDescription, $propertyType, $city, $userH, $longitude, $latitude, $price, $propertyActive);
                     //pass values to the attributes
                     $this->id_reservation = $id_reservation;
-                    $this->user = new User($id_user, $name, $lastname, $phone, $email, new UserType($id_userType, $userType, $userTypeActive), $password, $userActive);
-                    $this->property = new Property($id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, $longitude, $latitude, $price, $propertyActive);
+                    $this->user = $user;
+                    $this->property = $property;
                     $this->startDate = $startDate;
                     $this->endDate = $endDate;
                     //$this->active = $active;
@@ -113,27 +135,42 @@
             //get connection
             $connection = MysqlConnection::getConnection();
             //query
-            $query = "Select u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
-            p.id_property, p.propertyName, p.propertyDescription, p.id_propertyType, p.id_city, p.id_user, p.longitude, p.latitude, p.price, p.active propertyActive,
-            r.id_reservation, r.startDate, r.endDate
-            from reservation r 
-            Left JOIN User u ON r.Id_user = u.id_user 
-            left Join UserType ut ON u.id_UserType = ut.id_userType 
-            Left Join Property p ON r.id_property = p.id_property;";
+            $query = "Select r.id_reservation, r.startDate, r.endDate, 
+                p.id_property, p.propertyName, p.propertyDescription, p.longitude, p.latitude, p.price, p.active propertyActive,
+                pt.id_propertyType, pt.propertyType, pt.active propertyTypeActive,
+                c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive,
+                u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
+                uh.id_user, uh.name, uh.lastName, uh.phone, uh.email, uth.id_userType, uth.userType, uth.active userHTypeActive, uh.password, uh.active userHActive
+                from Reservation r Left JOIN Property p ON r.id_property = p.id_property
+                left Join PropertyType pt ON p.id_propertyType = pt.id_propertyType
+                Left JOIN City c ON p.id_city = c.id_city
+                Left JOIN State s ON c.id_state = s.id_state
+                Left JOIN User u ON r.id_user = u.id_user
+                Left JOIN User uh ON p.id_user = uh.id_user
+                Left JOIN UserType ut ON u.id_userType = ut.id_userType
+                Left JOIN UserType uth ON uh.id_userType = uth.id_userType;";
             //command
             $command = $connection->prepare($query);
             //execute
             $command->execute();
             //bind results
-            $command->bind_result($id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive,
-                $id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, $longitude, $latitude, $price, $propertyActive,
-                $id_reservation, $startDate, $endDate);
+            $command->bind_result($id_reservation, $startDate, $endDate,
+                $id_property, $propertyName, $propertyDescription, $longitude, $latitude, $price, $propertyActive,
+                $id_propertyType, $propertyType, $propertyTypeActive,
+                $id_city, $cityName, $activeCity, $id_state, $stateName, $activeState,
+                $id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive,
+                $id_userH, $nameH, $lastnameH, $phoneH, $emailH, $id_userHType, $userHType, $userHTypeActive, $passwordH, $userHActive);
             //fetch data
             while($command->fetch()){
+                $state = new State($id_state, $stateName, $activeState);
                 $userType = new UserType($id_userType, $userType, $userTypeActive);
+                $userHType = new UserType($id_userHType, $userHType, $userHTypeActive);
+                $propertyType = new PropertyType($id_propertyType, $propertyType, $propertyTypeActive);
+                $city = new City($id_city, $cityName, $state, $activeCity);
                 $user = new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive);
-                $property = new Property($id_property, $propertyName, $propertyDescription, $id_propertyType, $id_city, $id_user, $longitude, $latitude, $price, $propertyActive);
-                array_push($list, new User($id_reservation, $user, $property, $startDate, $endDate));
+                $userH = new User($id_userH, $nameH, $lastnameH, $phoneH, $emailH, $userHType, $passwordH, $userHActive);
+                $property = new Property($id_property, $propertyName, $propertyDescription, $propertyType, $city, $userH, $longitude, $latitude, $price, $propertyActive);
+                array_push($list, new Reservation($id_reservation, $user, $property, $startDate, $endDate));
             }
             //close command
             mysqli_stmt_close($command);
