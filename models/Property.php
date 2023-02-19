@@ -74,7 +74,7 @@
                     Left JOIN City c on p.id_city = c.id_city
                     Left JOIN State s on c.id_state = s.id_state
                     Left JOIN User u on p.id_user = u.id_user
-                    Left JOIN UserType ut on u.id_userType = ut.id_userType Where id_property = ?";
+                    Left JOIN UserType ut on u.id_userType = ut.id_userType Where p.id_property = ?";
                 //command
                 $command = $connection->prepare($query);
                 //bind parameter
@@ -83,7 +83,7 @@
                 $command->execute();
                 //bind results
                 $command->bind_result($id_property, $propertyName, $propertyDescription, $longitude, $latitude, $price, $propertyActive,
-                    $id_propertyType, $propertyType, $propertyActive,
+                    $id_propertyType, $propertyType, $propertyTypeActive,
                     $id_city, $cityName, $activeCity, $id_state, $stateName, $activeState,
                     $id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive);
                 //Record was found
@@ -94,7 +94,7 @@
                     $this->id_property = $id_property;
                     $this->propertyName = $propertyName;
                     $this->propertyDescription = $propertyDescription;
-                    $this->PropertyType = new PropertyType($id_propertyType, $propertyType, $propertyActive);
+                    $this->PropertyType = new PropertyType($id_propertyType, $propertyType, $propertyTypeActive);
                     $this->City = new City($id_city, $cityName, $state, $activeCity);
                     $this->User = new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive);
                     $this->longitude = $longitude;
@@ -199,7 +199,4 @@
             return json_encode($list);
         }
     }
-
-    //attributtes
-    //setter and getters
 ?>

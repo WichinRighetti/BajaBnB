@@ -15,7 +15,7 @@
                 //Display
                 echo json_encode(array(
                     'status' => 0,
-                    'site' => json_decode($s->toJson())
+                    'state' => json_decode($s->toJson())
                 ));
             }catch(RecordNotFoundException $ex){
                 echo json_encode(array(
@@ -27,7 +27,7 @@
             //Display
             echo json_encode(array(
                 'status' => 0,
-                'site' => json_decode(State::getAllByJson())
+                'state' => json_decode(State::getAllByJson())
             ));
         }
     }
