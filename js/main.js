@@ -21,28 +21,15 @@ function showSites(data){
     //parse to JSON
     var JSONdata =JSON.parse(data);
     //get data array
-    var sites = JSONdata.site;
+    var sites = JSONdata.property;
     //read data
-    for(var i = 0; i <= sites.length; i++){
+    for(var i = 0; i < sites.length; i++){
         console.log(sites[i]);
         //create option
         var option = document.createElement('option');
         option.value = sites[i].id_property;
-        option.innerHTML = sites[i].propertyName;
-        select.appendChild(option);
+        option.innerHTML = sites[i].city.cityName;
+        option.id = "opcion"
+        select.appendChild(option);    
     }
 }
-
-function centerMap(data){
-    var id = document.getElementById('cbSites').value;
-    id = "1";
-
-    //parse to JSON
-    var JSONdata =JSON.parse(data);
-    //get data array
-    var marker = JSONdata.site;
-    
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: marker[id_property].latitude, lng: marker[id_property].longitude },
-        zoom: 15,
-    });}
