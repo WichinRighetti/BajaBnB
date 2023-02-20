@@ -3,7 +3,6 @@ var sideMarkerVisible = false;
 
 function initMap() {
     var id = document.getElementById("cbSites").value;
-    console.log("Getting datta...")
     //create request
     var x = new XMLHttpRequest();
     //prepare request
@@ -25,7 +24,7 @@ function showLocation() {
     //create request
     var x = new XMLHttpRequest();
     //prepare request
-    x.open('GET', 'http://localhost/Sites1/controllers/PropertyController.php?id=' + id, true);
+    x.open('GET', 'http://localhost/BajaBnB/controllers/PropertyController.php?id=' + id, true);
     //send request
     x.send();
     //handle ready state change event
@@ -41,17 +40,14 @@ function showMap(data){
     //parse to JSON
     var JSONdata =JSON.parse(data);
     //get data array
-    var marker = JSONdata.site;
+    var marker = JSONdata.property;
     
     map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: marker.latitude, lng: marker.longitude },
         zoom: 15,
     });
 
-    console.log("Latitude", marker.latitude);
-    console.log("Longitude", marker.longitude);
-
-    var contentPopup = '<h2>' + marker.propertyName + '</h2>' +  
+    var contentPopup = '<h2><a href="property-details.html"> ' + marker.propertyName + '</a></h2>' +  
     '<h3>' + marker.propertyDescription + '</h3>' + 
     '<img width=200 height=100 src=Client/assets/images/image' + marker.id_property + '.jpg>';
     var infoWindows = new google.maps.InfoWindow({

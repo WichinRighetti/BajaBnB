@@ -97,13 +97,14 @@
     <div class="item item-3">
       <div class="img-fill">
           <div class="text-content">
-            <h4>DISTRUFA</h4>
+            <h4>DISFRUTA</h4>
           </div>
       </div>
     </div>
     <!-- // Item -->
   </div>
 </div>
+
 <!-- Banner Ends Here -->
 
     <div class="services">
@@ -122,25 +123,18 @@
               <div class="col-md-6">
                   <div  class="form-group">
                       <label>Ciudad:</label>
-                       <select class="form-control" id="cbSites" onchange="initMap()">
-                        <option value="0">Ciudad</option>
+                       <select class="form-control" id="cbSites" onclick="initMap(),propertySelected()" >
                        </select>
                   </div>
               </div>
           </div>
         </div>
       </div>
-          <div class="col-sm-4 offset-sm-4">
-            <div class="main-button text-center">
-                <a href="#" class="filled-button">Search</a>
-            </div>
-          </div>
-          <br>
-          <br>
-
-              <div id="map"></div>
-              <br><br>
-
+        <!-- MAP SECTION -->
+          <br><br>
+          <div id="map"></div>
+          <br><br>
+        <!-- END MAP SECTON -->
         <div class="row">
           <div class="col-md-4">
             <div class="service-item">
@@ -238,6 +232,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="js/map.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/PropDetails.js"></script>
     <script src="Client/assets/js/custom.js"></script>
     <script src="Client/assets/js/owl.js"></script>
     <script src="Client/assets/js/slick.js"></script>
