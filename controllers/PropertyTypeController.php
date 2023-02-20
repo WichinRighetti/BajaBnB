@@ -4,7 +4,7 @@
     //Allow methods
     header('Access-Control-Methods: GET, POST, PUT, DELETE');
 
-    require_once($_SERVER['DOCUMENT_ROOT'].'/BajaBnB/models/propertyType.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/BajaBnB/models/PropertyType.php');
 
     //get (read)
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -15,7 +15,7 @@
                 //display
                 echo json_encode(array(
                     'status'=> 0,
-                    'propertyType' => json_decode(($pt->toJson()))
+                    'propertyType' => json_decode($pt->toJson())
                 ));
             }catch(RecordNotFOundException $ex){
                 echo json_encode(array(

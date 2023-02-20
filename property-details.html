@@ -2,7 +2,6 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -86,16 +85,33 @@
 
             <br>
           </div>
-
+          <!-- Inicia Datepicker -->
           <div class="col-md-5">
-            <!-- aqui va a ir la el modulo para escoger fechas -->
-        </div>
+              <script>
+             const hoy = new Date();
+             let año = hoy.getFullYear;
+             let textYear = año.toString();
+             console.log(textYear);
+            </script>
 
+            <input type="text" name="daterange" value=  />
+
+            <script>
+              $('input[name="daterange"]').daterangepicker(({
+                opens: 'right',
+                
+              }));
+            </script>
         <div class="tabs-content" style="display: block;">
           <h4>Description</h4>
           <p id="bloqueDescripcion" ></p>
+          
+
+          </div>
+
+          <div class="tabs-content" style="display: block;">
+            <h4>Description</h4>
         </div>
-      </div>
 
         <br>
 
