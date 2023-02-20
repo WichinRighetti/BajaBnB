@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>BajaBnB</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link href=”https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” />
+    <script src=”https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js” integrity=”sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q” crossorigin=”anonymous”></script>
+    <script src=”https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js” integrity=”sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl” crossorigin=”anonymous”></script>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <script type="text/javascript" src="js/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="frontEnd-Sites/assets/css/daterangepicker.css" />
+  </head>
+
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header --> 
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><h2>baja<em> bnb</em></h2></a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div class="page-heading header-text">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1> Conoce </h1>
+            <span>la propiedad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="services">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+            <div>
+              <img src="assets/images/product-1-720x480.jpg" alt="" class="img-fluid wc-image">
+            </div>
+
+            <br>
+
+            <div class="row">
+              <div class="col-sm-4 col-6">
+                <div>
+                  <img src="assets/images/product-1-720x480.jpg" alt="" class="img-fluid">
+                </div>
+                <br>
+              </div>
+              <div class="col-sm-4 col-6">
+                <div>
+                  <img src="assets/images/product-2-720x480.jpg" alt="" class="img-fluid">
+                </div>
+                <br>
+              </div>
+              <div class="col-sm-4 col-6">
+                <div>
+                  <img src="assets/images/product-3-720x480.jpg" alt="" class="img-fluid">
+                </div>
+                <br>
+              </div>
+            </div>
+
+            <br>
+          </div>
+          <!-- Inicia Datepicker -->
+          <div class="col-md-5">
+
+            <input type="text" name="daterange" value=  />
+
+            <script>
+              $('input[name="daterange"]').daterangepicker(({
+                opens: 'right',
+                
+              }));
+            </script>
+
+            <!--<script>
+              $(function datePick() {
+                $('input[name="daterange"]').daterangepicker({
+                  opens: 'left'
+                }, function(start, end, label) {
+                  console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                });
+              });
+            </script>-->
+
+            <!--<script>
+              $(function (){
+                $('#date_range').daterangepicker()({
+                  "locale": {
+                    "format": "YYYY-MM-DD",
+                    "separator": "-",
+                    "applyLabel": "Guardar",
+                    "cancelLabel": "Cancelar",
+                    "fromLabel": "Hasta",
+                    "customRangeLabel": "Personalizar",
+                    "daysOfWeek": [
+                      "Do",
+                      "Lu",
+                      "Ma",
+                      "Mi",
+                      "Ju",
+                      "Vi",
+                      "Sa"
+                    ],
+                    "monthNames":[
+                      "Enero",
+                      "Febrero",
+                      "Marzo",
+                      "Abril",
+                      "Mayo",
+                      "Junio",
+                      "Julio",
+                      "Agosto",
+                      "Septiembre",
+                      "Octubre",
+                      "Noviembre",
+                      "Diciembre"
+                    ],
+                    "firstDay": 1
+                  },
+                  "startDate": "2016-01-01",
+                  "endDate": "2016-01-07",
+                  "opens": "center"
+                });
+              });
+            </script>-->
+          <!-- aqui va a ir la el modulo para escoger fechas -->
+          </div>
+
+          <div class="tabs-content" style="display: block;">
+            <h4>Description</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae provident quae quidem minima cupiditate tempora aperiam corrupti ducimus quos quisquam ipsam, laborum voluptatibus reiciendis saepe, at, facere cum quo! Nesciunt.</p>
+            <br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam optio doloribus modi? Odio voluptatibus dolorem itaque illo recusandae quasi unde eaque architecto, repellendus id consequatur vel totam, doloremque distinctio quas explicabo iure quisquam quis rem ipsa, accusantium! Perspiciatis, dicta, recusandae?</p>
+            <br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum sunt dolore minima commodi laudantium accusamus nemo repellat sapiente, eius error hic, autem. Dicta eveniet at consequatur dolorum placeat in, laborum beatae temporibus, delectus accusantium assumenda corporis, eum animi quaerat minus eos necessitatibus ipsam! Officia ut ab aspernatur, voluptatem blanditiis qui neque repellendus sapiente voluptas tempora exercitationem ipsa vel, dolorum consequatur.</p>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-lg-9">
+            <div class="tabs-content" style="display: block;">
+              <h4>Map</h4>
+              <img src="assets/images/map.jpg" class="img-fluid" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <!-- aqui va a ir la grafica de precios -->
+          </div>
+        </div>
+
+        <br><br><br><br>
+    </div>
+
+    <!-- Footer Starts Here -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 footer-item">
+            <h4>BajaBnB</h4>
+            <p>algo que digas como que contratanos ya o un mensaje legal no se 9</p>
+          </div>
+          <div class="col-md-4 footer-item">
+            <h4>Contacto</h4>
+            <span>BIT Center, Blvd. Gustavo Diaz Ordaz 12415- suite C-5, El Paraiso, 22106 Tijuana, B.C.</span>
+          </div>
+          <div class="col-md-4 footer-item last-item">
+            <img src="assets/images/about-1-570x350.jpg" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div class="sub-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+                Copyright © 2023 Step IT
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Enquiry</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="#" id="contact">
+                <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Enter full name" required="">
+                        </div>
+                     </div>
+
+                     <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Enter email address" required="">
+                        </div>
+                     </div>
+                </div>
+
+                <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Enter phone" required="">
+                        </div>
+                     </div>
+
+                     <div class="col-md-6">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                <input type="text" class="form-control" placeholder="From date" required="">
+                              </div>
+                           </div>
+
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                <input type="text" class="form-control" placeholder="To date" required="">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary">Send Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/owl.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/accordions.js"></script>
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+  </body>
+</html>

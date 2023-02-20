@@ -24,11 +24,8 @@ function showLocation() {
     //create request
     var x = new XMLHttpRequest();
     //prepare request
-<<<<<<< Updated upstream
     x.open('GET', 'http://localhost/BajaBnB/controllers/PropertyController.php?id=' + id, true);
-=======
-    x.open('GET', 'http://localhost:8080/BAJABnB/controllers/PropertyController.php?id=' + id, true);
->>>>>>> Stashed changes
+
     //send request
     x.send();
     //handle ready state change event
