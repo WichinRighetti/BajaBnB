@@ -2,6 +2,9 @@
 <html lang="en">
 
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -12,9 +15,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="Client/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="Client/assets/fonts/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="Client/assets/css/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="Client/assets/css/fontawesome.css">
     <link rel="stylesheet" href="Client/assets/css/style.css">
@@ -89,6 +90,7 @@
           </div>
           <!-- date picker  -->
             <div class="col-md-5">
+              <h2>Escoge tus fechas</h2><br><br>
               <input type="text" name="daterange"  value="O1/23/2023 - 01/23/2023" />
               <script>
                 $('input[name="daterange"]').daterangepicker(({
@@ -212,20 +214,12 @@
     <!-- Bootstrap core JavaScript -->
     <script src="Client/vendor/jquery/jquery.min.js"></script>
     <script src="Client/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <!-- Additional Scripts -->
     <script src="Client/assets/js/custom.js"></script>
     <script src="Client/assets/js/owl.js"></script>
     <script src="Client/assets/js/slick.js"></script>
     <script src="Client/assets/js/accordions.js"></script>
     <script src="js/PropDetails.js"></script>
-    <script type="text/javascript" src="js/daterangepicker.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/moment.min.js"></script>
-    <script src="js/package.js"></script>
-    <script src="js/moment.min.js.mapS"></script>
-    
-
 
     <script language = "text/Javascript"> 
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
