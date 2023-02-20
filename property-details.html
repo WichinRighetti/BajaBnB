@@ -2,7 +2,6 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -15,9 +14,25 @@
     <link href="Client/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Additional CSS Files -->
+<<<<<<< Updated upstream:property-details.html
     <link rel="stylesheet" href="Client/assets/css/fontawesome.css">
     <link rel="stylesheet" href="Client/assets/css/style.css">
     <link rel="stylesheet" href="Client/assets/css/owl.css">
+=======
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link href=”https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css” rel=”stylesheet” type=”text/css” />
+    <script src=”https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js” integrity=”sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q” crossorigin=”anonymous”></script>
+    <script src=”https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js” integrity=”sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl” crossorigin=”anonymous”></script>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <script type="text/javascript" src="js/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="frontEnd-Sites/assets/css/daterangepicker.css" />
+>>>>>>> Stashed changes:frontEnd-Sites/property-details.html
   </head>
 
   <body onload="pageID()">
@@ -86,16 +101,94 @@
 
             <br>
           </div>
-
+          <!-- Inicia Datepicker -->
           <div class="col-md-5">
-            <!-- aqui va a ir la el modulo para escoger fechas -->
-        </div>
 
+<<<<<<< Updated upstream:property-details.html
         <div class="tabs-content" style="display: block;">
           <h4>Description</h4>
           <p id="bloqueDescripcion" ></p>
+=======
+            <script>
+             const hoy = new Date();
+             let año = hoy.getFullYear;
+             let textYear = año.toString();
+             console.log(textYear);
+            </script>
+
+            <input type="text" name="daterange" value=  />
+
+            <script>
+              $('input[name="daterange"]').daterangepicker(({
+                opens: 'right',
+                
+              }));
+            </script>
+
+            <!--<script>
+              $(function datePick() {
+                $('input[name="daterange"]').daterangepicker({
+                  opens: 'left'
+                }, function(start, end, label) {
+                  console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+                });
+              });
+            </script>-->
+
+            <!--<script>
+              $(function (){
+                $('#date_range').daterangepicker()({
+                  "locale": {
+                    "format": "YYYY-MM-DD",
+                    "separator": "-",
+                    "applyLabel": "Guardar",
+                    "cancelLabel": "Cancelar",
+                    "fromLabel": "Hasta",
+                    "customRangeLabel": "Personalizar",
+                    "daysOfWeek": [
+                      "Do",
+                      "Lu",
+                      "Ma",
+                      "Mi",
+                      "Ju",
+                      "Vi",
+                      "Sa"
+                    ],
+                    "monthNames":[
+                      "Enero",
+                      "Febrero",
+                      "Marzo",
+                      "Abril",
+                      "Mayo",
+                      "Junio",
+                      "Julio",
+                      "Agosto",
+                      "Septiembre",
+                      "Octubre",
+                      "Noviembre",
+                      "Diciembre"
+                    ],
+                    "firstDay": 1
+                  },
+                  "startDate": "2016-01-01",
+                  "endDate": "2016-01-07",
+                  "opens": "center"
+                });
+              });
+            </script>-->
+          <!-- aqui va a ir la el modulo para escoger fechas -->
+          </div>
+
+          <div class="tabs-content" style="display: block;">
+            <h4>Description</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae provident quae quidem minima cupiditate tempora aperiam corrupti ducimus quos quisquam ipsam, laborum voluptatibus reiciendis saepe, at, facere cum quo! Nesciunt.</p>
+            <br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam optio doloribus modi? Odio voluptatibus dolorem itaque illo recusandae quasi unde eaque architecto, repellendus id consequatur vel totam, doloremque distinctio quas explicabo iure quisquam quis rem ipsa, accusantium! Perspiciatis, dicta, recusandae?</p>
+            <br>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum sunt dolore minima commodi laudantium accusamus nemo repellat sapiente, eius error hic, autem. Dicta eveniet at consequatur dolorum placeat in, laborum beatae temporibus, delectus accusantium assumenda corporis, eum animi quaerat minus eos necessitatibus ipsam! Officia ut ab aspernatur, voluptatem blanditiis qui neque repellendus sapiente voluptas tempora exercitationem ipsa vel, dolorum consequatur.</p>
+          </div>
+>>>>>>> Stashed changes:frontEnd-Sites/property-details.html
         </div>
-      </div>
 
         <br>
 
