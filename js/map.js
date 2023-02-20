@@ -97,7 +97,7 @@ function showMap(data){
         })
         
     sites.setMap(map);
-    }*//
+    }*/
 }
 
 window.initMap = initMap;
