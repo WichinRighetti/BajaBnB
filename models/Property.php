@@ -23,8 +23,8 @@
         private $active;
 
         //Setters and getters
-        public function setIdProperty($value){$this->id_property = $value; }
-        public function getIdProperty(){ return $this->id_property; }
+        public function setId_Property($value){$this->id_property = $value; }
+        public function getId_Property(){ return $this->id_property; }
         public function setPropertyName($value){$this->propertyName = $value; }
         public function getPropertyName(){ return $this->propertyName; }
         public function setPropertyDescription($value){$this->propertyDescription = $value; }
