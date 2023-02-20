@@ -190,5 +190,28 @@
             //return list
             return json_encode($list);
         }
+
+        //add
+    function add(){
+        //get connection
+        $connection = MysqlConnection::getConnection();
+        //query
+        $query = 'Insert Into Reservation (id_property, id_user, startDate, endDate) values (?, ?, ?,?)';
+        //command
+        $command=$connection->prepare($query);
+        $id_property = $this->property->getId_property();
+        $id_user = $this->user->getId_user();
+        //bind params
+        $command->bind_param('iiss', $id_property, $id_user, $this->startDate, $this->endDate);
+        //execute
+        $result = $command->execute();
+        //close command
+        mysqli_stmt_close($command);
+        //Close connection
+        $connection->close();
+        //return result
+        return $result;
+
+    }
     }
 ?>
