@@ -12,7 +12,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="Client/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="frontEnd-Sites/assets/css/daterangepicker.css" />
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="Client/assets/css/fontawesome.css">
     <link rel="stylesheet" href="Client/assets/css/style.css">
@@ -85,6 +87,7 @@
 
             <br>
           </div>
+<<<<<<< Updated upstream
           <!-- Inicia Datepicker -->
           <div class="col-md-5">
               <script>
@@ -93,6 +96,18 @@
              let textYear = año.toString();
              console.log(textYear);
             </script>
+=======
+          <!-- date picker  -->
+            <div class="col-md-5">
+              <input type="text" name="daterange" value=  />
+              <script>
+                $('input[name="daterange"]').daterangepicker(({
+                  opens: 'right',
+  
+                }));
+              </script>
+          </div>
+>>>>>>> Stashed changes
 
             <input type="text" name="daterange" value=  />
 
@@ -231,6 +246,9 @@
     <script src="Client/assets/js/slick.js"></script>
     <script src="Client/assets/js/accordions.js"></script>
     <script src="js/PropDetails.js"></script>
+    <script type="text/javascript" src="js/daterangepicker.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/moment.min.js"></script>
 
     <script language = "text/Javascript"> 
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
