@@ -1,6 +1,6 @@
 <?php
     //allow access 
-    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-origin: *');
     //allow methods
     header('Access-Control-Methods: GET, POST, PUT, DELETE');
     //allow headers

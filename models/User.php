@@ -107,8 +107,8 @@
                 //get connection
                 $connection = MysqlConnection::getConnection();
                 //query
-                $query = "SELECT id_user, name, lastname, phone, email, usertype, password, active
-                          FROM users 
+                $query = "SELECT id_user, name, lastname, phone, email, id_usertype, password, active
+                          FROM user 
                           WHERE email = ? AND password = ?";
                 //command
                 $command = $connection->prepare($query);
@@ -117,7 +117,7 @@
                 //execute
                 $command->execute();
                 //bind results
-                $command->bind_result($id_user, $name, $lastname, $phone, $email, $usertype, $password, $active);
+                $command->bind_result($id_user, $name, $lastname, $phone, $email, $userType, $password, $active);
                 //record was found
                 if($command->fetch()) {
                     //transfer values to the attributes
@@ -126,7 +126,7 @@
                     $this->lastname = $lastname;
                     $this->phone = $phone;
                     $this->email = $email;
-                    $this->userType = $usertype;
+                    $this->userType = $userType;
                     $this->password= $password;
                     $this->active = $active;
                 }else {
@@ -149,7 +149,8 @@
                 'lastname'=>$this->lastname,
                 'phone'=>$this->phone,
                 'email'=>$this->email,
-                'userType'=>json_decode($this->userType->toJson()),
+                'userType'=>$this->userType,
+                //'userType'=>json_decode($this->userType->toJson()),
                 'password'=>$this->password,
                 'active'=>$this->active
             ));
