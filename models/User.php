@@ -3,6 +3,7 @@
     require_once('mysqlConnection.php');
     require_once('UserType.php');
     require_once('exceptions/recordNotFoundException.php');
+    require_once('exceptions/invalidUserException.php');
 
     class User{
         //attributes
@@ -98,6 +99,46 @@
                 $this->active = $arguments[7];
 
             }
+            //constructor with data from database for login
+            if(func_num_args() == 2){
+                // get email
+                $email = func_get_arg(0);
+                $pass = func_get_arg(1);
+                //get connection
+                $connection = MysqlConnection::getConnection();
+                //query
+                $query = "SELECT id_user, name, lastname, phone, email, usertype, password, active
+                          FROM users 
+                          WHERE email = ? AND password = ?";
+                //command
+                $command = $connection->prepare($query);
+                //bind parameter
+                $command->bind_param('ss', $email, $pass);
+                //execute
+                $command->execute();
+                //bind results
+                $command->bind_result($id_user, $name, $lastname, $phone, $email, $usertype, $password, $active);
+                //record was found
+                if($command->fetch()) {
+                    //transfer values to the attributes
+                    $this->id_user = $id_user;
+                    $this->name = $name;
+                    $this->lastname = $lastname;
+                    $this->phone = $phone;
+                    $this->email = $email;
+                    $this->userType = $usertype;
+                    $this->password= $password;
+                    $this->active = $active;
+                }else {
+                    //throw exception if record not found
+                    throw new InvalidUserException($email);
+                }
+                //close command
+                mysqli_stmt_close($command);
+                //close connection
+                $connection->close();
+            }
+
         }
 
         //represent the object in JSON format
