@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>BajaBnB</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="Client/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="Client/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="Client/assets/css/style.css">
+    <link rel="stylesheet" href="Client/assets/css/owl.css">
+    <style>
+      #map {
+        height: 80%;
+      }
+      html,
+      body {
+        height: 80%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body onload="getSites()">
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><h2>Baja <em> BNB</em></h2></a>
+          <!-- <a href="" class="filled-button">login</a> -->
+          <!-- Login HTML code by JMGG 02/16/2023 -->
+          <button id="show-login">login</button>
+          <div class="popup">
+            <div class="close-btn">&times;</div>
+            <div class="form">
+              <h2>Log in</h2>
+              <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+              </div>
+              <div class="form-element">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter password">
+              </div>
+              <br>
+              <div class="form-element">
+                <button class="button">Sign in</button>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </nav>
+    </header>
+
+<!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="main-banner header-text" id="top">
+  <div class="Modern-Slider">
+    <!-- Item -->
+    <div class="item item-1">
+      <div class="img-fill">
+          <div class="text-content">
+            <h4>BUSCA</h4>
+          </div>
+      </div>
+    </div>
+    <!-- // Item -->
+    <!-- Item -->
+    <div class="item item-2">
+      <div class="img-fill">
+          <div class="text-content">
+            <h4>RESERVA</h4>
+          </div>
+      </div>
+    </div>
+    <!-- // Item -->
+    <!-- Item -->
+    <div class="item item-3">
+      <div class="img-fill">
+          <div class="text-content">
+            <h4>DISFRUTA</h4>
+          </div>
+      </div>
+    </div>
+    <!-- // Item -->
+  </div>
+</div>
+
+<!-- Banner Ends Here -->
+
+    <div class="services">
+      <div class="container">
+          <h3>ENCUENTRA TU PROXIMO HOGAR</h3><br><br>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label>Estado:</label>
+                       <select class="form-control">
+                            <option value="">Baja California</option>
+                       </select>
+                  </div>
+              </div>
+
+              <div class="col-md-6">
+                  <div  class="form-group">
+                      <label>Ciudad:</label>
+                       <select class="form-control" id="cbSites" onclick="initMap(),propertySelected()" >
+                       </select>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+        <!-- MAP SECTION -->
+          <br><br>
+          <div id="map"></div>
+          <br><br>
+        <!-- END MAP SECTON -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="service-item">
+              <img src="Client/assets/images/product-1-720x480.jpg" alt="">
+              <div class="down-content">
+                <h4>Lorem ipsum dolor sit amet</h4>
+                <div style="margin-bottom:10px;">
+                  <span> <del><sup>$</sup>80 000</del>  <sup>$</sup>70 000 </span>
+                </div>
+
+                <p>House  /  For Sale  /  100 sq m  /  2010</p>
+
+                <a href="property-details.html" class="filled-button">View More</a>
+              </div>
+            </div>
+
+            <br>
+          </div>
+
+          <div class="col-md-4">
+            <div class="service-item">
+              <img src="Client/assets/images/product-2-720x480.jpg" alt="">
+              <div class="down-content">
+                <h4>Lorem ipsum dolor sit amet</h4>
+                <div style="margin-bottom:10px;">
+                  <span> <del><sup>$</sup>80 000</del>  <sup>$</sup>70 000 </span>
+                </div>
+
+                <p>House  /  For Sale  /  100 sq m  /  2010</p>
+
+                <a href="property-details.html" class="filled-button">View More</a>
+              </div>
+            </div>
+
+            <br>
+          </div>
+
+          <div class="col-md-4">
+            <div class="service-item">
+              <img src="Client/assets/images/product-3-720x480.jpg" alt="">
+              <div class="down-content">
+                <h4>Lorem ipsum dolor sit amet</h4>
+                <div style="margin-bottom:10px;">
+                  <span> <del><sup>$</sup>80 000</del>  <sup>$</sup>70 000 </span>
+                </div>
+
+                <p>House  /  For Sale  /  100 sq m  /  2010</p>
+
+                <a href="property-details.html" class="filled-button">View More</a>
+              </div>
+            </div>
+            <br>
+          </div>
+        </div>
+        <br><br><br><br><br>
+
+    <!-- Footer Starts Here -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 footer-item">
+            <h4>BajaBnB</h4>
+            <p>algo que digas como que contratanos ya o un mensaje legal no se 9</p>
+          </div>
+          <div class="col-md-4 footer-item">
+            <h4>Contacto</h4>
+            <span>BIT Center, Blvd. Gustavo Diaz Ordaz 12415- suite C-5, El Paraiso, 22106 Tijuana, B.C.</span>
+          </div>
+          <div class="col-md-4 footer-item last-item">
+            <img src="Client/assets/images/about-1-570x350.jpg" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div class="sub-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+                Copyright © 2023 Step IT
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="Client/vendor/jquery/jquery.min.js"></script>
+    <script src="Client/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+    defer></script>
+    <!-- Additional Scripts -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="js/map.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/PropDetails.js"></script>
+    <script src="Client/assets/js/custom.js"></script>
+    <script src="Client/assets/js/owl.js"></script>
+    <script src="Client/assets/js/slick.js"></script>
+    <script src="Client/assets/js/accordions.js"></script>
+    <!-- Added login JS code by JMGG 02/16/2023-->
+    <script src="Client/assets/js/login.js"></script>
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+  </body>
+</html>
