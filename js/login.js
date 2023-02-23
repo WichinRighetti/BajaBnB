@@ -3,7 +3,7 @@ function login(){
     //create request
     var x = new XMLHttpRequest();
     //prepare request
-    x.open('GET', 'http://localhost:8080/Sites/controllers/loginController.php', true);
+    x.open('GET', 'http://localhost/BajaBnB/controllers/loginController.php', true);
     //request header
     x.setRequestHeader('user', document.getElementById('email').value);
     x.setRequestHeader('password', document.getElementById('password').value);
