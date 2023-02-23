@@ -7,6 +7,7 @@
     require_once('State.php');
     require_once('User.php');
     require_once('UserType.php');
+    require_once('Reservation.php');
 
     //Calse name
     Class Property{
@@ -198,5 +199,28 @@
             //return list
             return json_encode($list);
         }
+        //represent the object in JSON format
+        public function toJsonAll(){
+            $reservationList = array();
+
+            foreach(Reservation::getAll() as $item){
+                array_push($reservationList, json_decode($item->toJson()));
+            }
+
+            return json_encode(array(
+                'id_property' => $this->id_property,
+                'propertyName' => $this->propertyName,
+                'propertyDescription' => $this->propertyDescription,
+                'propertyType' => json_decode($this->PropertyType->toJson()),
+                'city' => json_decode($this->City->toJson()),
+                'user' => json_decode($this->User->toJson()),
+                'longitude' => $this->longitude,
+                'latitude' => $this->latitude,
+                'price' => $this->price,
+                'active' => $this->active,
+                'records' => $reservationList
+            ));
+        }
     }
+    
 ?>
