@@ -2,7 +2,7 @@ function getSites(){
     //create request
     var x = new XMLHttpRequest();
     //prepare request
-    x.open('GET', 'http://localhost:8080/BajaBnB/controllers/PropertyController.php', true);
+    x.open('GET', 'http://localhost/BajaBnB/controllers/PropertyController.php', true);
     //send request
     x.send();
     //handle ready state change event
