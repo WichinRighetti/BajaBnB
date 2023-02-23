@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="Client/assets/css/owl.css">
   </head>
 
-  <body onload="pageID()">
+  <body onload="pageID(), index(), chart()">
 
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
@@ -106,15 +106,30 @@
         <br>
 
         <div class="row">
-          <div class="col-lg-9">
+          <div class="col-lg-6">
             <div class="tabs-content" style="display: block;">
               <h4>Map</h4>
-              <img src="Client/assets/images/map.jpg" class="img-fluid" alt="">
+              <div class="card-body" id="map" style="height: 500px; width: 800px">
+                <script
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+                    defer
+                  ></script>
+              </div>
             </div>
           </div>
 
-          <div class="col-lg-3">
+          <div class="col-lg-6">
             <!-- aqui va a ir la grafica de precios -->
+            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="tabs-content" style="display: block;">
+              <h4>Chart</h4>
+              <div class="card-body" id="chart" style="height: 500px; width: 800px"></div>
+            </div>
           </div>
         </div>
 
@@ -217,9 +232,21 @@
     <!-- Additional Scripts -->
     <script src="Client/assets/js/custom.js"></script>
     <script src="Client/assets/js/owl.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/map.js"></script>
     <script src="Client/assets/js/slick.js"></script>
     <script src="Client/assets/js/accordions.js"></script>
     <script src="js/PropDetails.js"></script>
+
+    <!--Charts-->
+    <script src="js/charts.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <script language = "text/Javascript"> 
       cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field

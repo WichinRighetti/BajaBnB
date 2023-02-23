@@ -4,7 +4,7 @@ function propertySelected() {
     //create request
     var x = new XMLHttpRequest();
     //prepare request
-    x.open('GET', 'http://localhost/BajaBnB/controllers/PropertyController.php?id=' + id, true);
+    x.open('GET', 'http://localhost:8080/BajaBnB/controllers/PropertyController.php?id=' + id, true);
     //send request
     x.send();
     //handle ready state change event
@@ -23,6 +23,7 @@ function preparePage(data){
         var sites = JSONdata.property;
         const opcion = sites.id_property;
         localStorage.setItem('opc',opcion);
+        sessionStorage.siteId = sites.id_property;
 }
 
 
@@ -31,7 +32,7 @@ function pageID(){
         //create request
         var x = new XMLHttpRequest();
         //prepare request
-        x.open('GET', 'http://localhost/BajaBnB/controllers/PropertyController.php?id=' + id, true);
+        x.open('GET', 'http://localhost:8080/BajaBnB/controllers/PropertyController.php?id=' + id, true);
         //send request
         x.send();
         //handle ready state change event
