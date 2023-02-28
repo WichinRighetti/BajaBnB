@@ -2,11 +2,11 @@ let map;
 var sideMarkerVisible = false;
 
 function initMap() {
-    var id = document.getElementById("cbSites").value;
+    //var id = document.getElementById("cbSites").value;
     //create request
     var x = new XMLHttpRequest();
     //prepare request
-    x.open('GET', 'http://localhost/BAJABnB/controllers/PropertyController.php?id=' + id, true);
+    x.open('GET', 'http://localhost/BaJaBnB/controllers/PropertyController.php?id=' + sessionStorage.siteId, true);
     //send request
     x.send();
     //handle ready state change event

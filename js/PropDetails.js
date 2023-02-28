@@ -23,6 +23,7 @@ function preparePage(data){
         var sites = JSONdata.property;
         const opcion = sites.id_property;
         localStorage.setItem('opc',opcion);
+        sessionStorage.siteId = sites.id_property;
 }
 
 

@@ -84,17 +84,21 @@
                 //close connection
                 $connection->close();
             }
+
             //constructor with password and email
             if(func_num_args() == 2){
                 // get id
+
                 $email = func_get_arg(0);
                 $password = func_get_arg(1);
                 //get connection
                 $connection = MysqlConnection::getConnection();
                 //query
                 $query = "Select u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active
+
                 from User u left Join UserType ut ON u.id_UserType = ut.id_userType 
                 Where Email = ? AND Password = sha(?);";
+
                 //command
                 $command = $connection->prepare($query);
                 //bind parameter
@@ -116,7 +120,9 @@
                     $this->active = $UserActive;
                 }else{
                     // throw exception if record not found
+
                     throw new InvalidUserException($email);
+
                 }
                 //close command
                 mysqli_stmt_close($command);

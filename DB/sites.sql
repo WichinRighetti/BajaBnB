@@ -111,13 +111,13 @@ Insert Into User(name, lastName, phone, email, id_userType, password) Values
 ('Huesped', 'Siete', '0446641243', 'correo10@gmail.com', 2, '123abc');
 Select * from User;
 
-Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, longitude, latitude, price) Values 
+Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, latitude, longitude, price) Values 
 ('Propiedad 1', 'Esta es la propiedad 1', 1, 1, 1, 32.4964153, -116.9548891, 1000);
-Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, longitude, latitude, price) Values 
+Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, latitude, longitude, price) Values 
 ('Propiedad 2', 'Esta es la propiedad 2', 1, 1, 1, 32.507241, -116.9317875, 1500);
-Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, longitude, latitude, price) Values 
+Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, latitude, longitude, price) Values 
 ('Propiedad 3', 'Esta es la propiedad 3', 1, 1, 1, 32.5008455, -116.9152797, 1000);
-Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, longitude, latitude, price) Values 
+Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, latitude, longitude, price) Values 
 ('Propiedad 4', 'Esta es la propiedad 4', 1, 1, 1, 32.4687682, -116.962683, 900);
 Select * from Property;
 
