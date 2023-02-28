@@ -199,12 +199,13 @@
             //return list
             return json_encode($list);
         }
-        //represent the object in JSON format
+
+        //represent the object with records in JSON format
         public function toJsonAll(){
             $reservationList = array();
 
             foreach(Reservation::getAll() as $item){
-                array_push($reservationList, json_decode($item->toJson()));
+                array_push($reservationList, json_decode($item->toJsonReservations()));
             }
 
             return json_encode(array(

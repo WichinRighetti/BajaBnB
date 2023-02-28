@@ -122,7 +122,17 @@
             return json_encode(array(
                 'id_reservation'=>$this->id_reservation,
                 'user'=>json_decode($this->user->toJson()),
-                //'property'=>json_decode($this->property->toJson()),
+                'property'=>json_decode($this->property->toJson()),
+                'startDate'=>$this->startDate,
+                'endDate'=>$this->endDate
+            ));
+        }
+
+        //represent the object in JSON format only reservetion
+        public function toJsonReservations(){
+            return json_encode(array(
+                'id_reservation'=>$this->id_reservation,
+                'user'=>json_decode($this->user->toJson()),
                 'startDate'=>$this->startDate,
                 'endDate'=>$this->endDate
             ));

@@ -16,6 +16,20 @@
                 //Display
                 echo json_encode(array(
                     'status' => 0,
+                    'property' => json_decode($s->toJson())
+                ));
+            }catch(RecordNotFoundException $ex){
+                echo json_encode(array(
+                    'status' => 1,
+                    'errorMessage' => $ex->get_message()
+                ));
+            }
+        }else if(isset($_GET['id_property'])){
+            try{
+                $s = new Property($_GET['id_property']);
+                //Display
+                echo json_encode(array(
+                    'status' => 0,
                     'property' => json_decode($s->toJsonAll())
                 ));
             }catch(RecordNotFoundException $ex){
