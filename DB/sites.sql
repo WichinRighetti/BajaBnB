@@ -42,7 +42,7 @@ active bit default 1
 create table Property(
 id_property int primary key auto_increment,
 propertyName varchar(50),
-propertyDescription varchar(100) not null,
+propertyDescription varchar(200) not null,
 id_propertyType int not null,
 id_city int not null,
 id_user int not null,
@@ -90,35 +90,38 @@ Insert Into UserType(userType) Values ('Huesped');
 Select * from UserType;
 
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Arrendatario', 'Uno', '0446641234', 'correo1@gmail.com', 1, '123abc');
+('Arrendatario', 'Uno', '0446641234', 'correo1@gmail.com', 1, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Arrendatario', 'Dos', '0446641235', 'correo2@gmail.com', 1, '123abc');
+('Arrendatario', 'Dos', '0446641235', 'correo2@gmail.com', 1, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Arrendatario', 'Tres', '0446641236', 'correo3@gmail.com', 1, '123abc');
+('Arrendatario', 'Tres', '0446641236', 'correo3@gmail.com', 1, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Huesped', 'Uno', '0446641237', 'correo4@gmail.com', 2, '123abc');
+('Huesped', 'Uno', '0446641237', 'correo4@gmail.com', 2, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Husped', 'Dos', '0446641238', 'correo5@gmail.com', 2, '123abc');
+('Husped', 'Dos', '0446641238', 'correo5@gmail.com', 2, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Huesped', 'Tres', '0446641239', 'correo6@gmail.com', 2, '123abc');
+('Huesped', 'Tres', '0446641239', 'correo6@gmail.com', 2, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Huesped', 'Cuatro', '0446641230', 'correo7@gmail.com', 2, '123abc');
+('Huesped', 'Cuatro', '0446641230', 'correo7@gmail.com', 2, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Huesped', 'Cinco', '0446641241', 'correo8@gmail.com', 2, '123abc');
+('Huesped', 'Cinco', '0446641241', 'correo8@gmail.com', 2, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Huesped', 'Seis', '0446641242', 'correo9@gmail.com', 2, '123abc');
+('Huesped', 'Seis', '0446641242', 'correo9@gmail.com', 2, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Huesped', 'Siete', '0446641243', 'correo10@gmail.com', 2, '123abc');
+('Huesped', 'Siete', '0446641243', 'correo10@gmail.com', 2, sha1('123abc'));
 Select * from User;
 
 Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, latitude, longitude, price) Values 
-('Propiedad 1', 'Esta es la propiedad 1', 1, 1, 1, 32.4964153, -116.9548891, 1000);
+('Casa Fresnos', 'Esta casa cuenta con 5 recamaras, 2 baños completos, estacionamiento al frente
+del domicilio y un amplio patio para niños y/o mascotas.', 1, 1, 1, 32.4964153, -116.9548891, 2000);
 Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, latitude, longitude, price) Values 
-('Propiedad 2', 'Esta es la propiedad 2', 1, 1, 1, 32.507241, -116.9317875, 1500);
+('Casa Dolores', 'Esta casa cuenta con 2 recamaras, 2 baños completos, garage para 2 autos y un amplio patio para niños y/o mascotas.', 1, 1, 1, 32.507241, -116.9317875, 1000);
 Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, latitude, longitude, price) Values 
-('Propiedad 3', 'Esta es la propiedad 3', 1, 1, 1, 32.5008455, -116.9152797, 1000);
+('Casa Riviera', 'Esta casa cuenta con 6 recamaras, 4 baños completos, estacionamiento al frente del domicilio, 2 salas con chimenea y un amplio patio 
+para niños y/o mascotas.', 1, 1, 1, 32.5008455, -116.9152797, 1000);
 Insert Into Property(propertyName, propertyDescription, id_propertyType, id_city, id_user, latitude, longitude, price) Values 
-('Propiedad 4', 'Esta es la propiedad 4', 1, 1, 1, 32.4687682, -116.962683, 900);
+('Casa Madison Deluxe', 'Esta casa cuenta con 3 recamaras, 2 baños completos, garage para 2 autos y un 
+amplio patio para niños. En esta residencia no se admiten mascotas.', 1, 1, 1, 32.4687682, -116.962683, 900);
 Select * from Property;
 
 Insert Into PropertyImages(id_property, url) Values 
