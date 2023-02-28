@@ -25,7 +25,7 @@ function showLocation() {
     var x = new XMLHttpRequest();
     //prepare request
     x.open('GET', 'http://localhost/BajaBnB/controllers/PropertyController.php?id=' + id, true);
-
+    console.log(id);
     //send request
     x.send();
     //handle ready state change event
@@ -100,4 +100,4 @@ function showMap(data){
     }*/
 }
 
-window.initMap = initMap;
+//window.initMap = initMap;
