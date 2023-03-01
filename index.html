@@ -123,7 +123,7 @@
               <div class="col-md-6">
                   <div  class="form-group">
                       <label>Ciudad:</label>
-                       <select class="form-control" id="cbSites" onclick="initMap(),propertySelected()" >
+                       <select class="form-control" id="cbSites" onchange="showLocation(),propertySelected()" >
                        </select>
                   </div>
               </div>
@@ -226,7 +226,7 @@
     <script src="Client/vendor/jquery/jquery.min.js"></script>
     <script src="Client/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&v=weekly"
     defer></script>
     <!-- Additional Scripts -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>

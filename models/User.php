@@ -95,9 +95,8 @@
                 $connection = MysqlConnection::getConnection();
                 //query
                 $query = "Select u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active
-
                 from User u left Join UserType ut ON u.id_UserType = ut.id_userType 
-                Where Email = ? AND Password = sha(?);";
+                Where u.email = ? AND u.password = sha(?);";
 
                 //command
                 $command = $connection->prepare($query);
