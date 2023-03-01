@@ -135,3 +135,10 @@ Insert Into PropertyImages(id_property, url) Values
 Insert Into PropertyImages(id_property, url) Values 
 (5, 'Imagen5');
 Select * from PropertyImages;
+
+Insert Into Reservation(id_user, id_property, startDate, endDate) Values
+(1, 1, '2023-02-26', '2023-02-26');
+Insert Into Reservation(id_user, id_property, startDate, endDate) Values
+(1, 1, '2023-02-27', '2023-02-27');
+Insert Into Reservation(id_user, id_property, startDate, endDate) Values
+(1, 1, '2023-02-28', '2023-02-28');
