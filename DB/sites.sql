@@ -1,6 +1,7 @@
 #Create DB
-CREATE DATABASE sites1;
-use sites1;
+drop database IF EXISTS Sites1;
+create database Sites1;
+use Sites1;
 
 #Create tables
 create table State(
@@ -35,7 +36,7 @@ lastName varchar(20) not null,
 phone varchar(10),
 email varchar(30) not null,
 id_userType int not null,
-password varchar(10) not null,
+password varchar(100) not null,
 active bit default 1
 );
 
