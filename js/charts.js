@@ -1,282 +1,99 @@
-function chart(){
-    showChart('Reservations', 'Subtitle');
+//get data
+function getData(){
+    //create request
+    var x = new XMLHttpRequest();
+    //prepare request
+    x.open('GET', 'http://localhost/BAJABnB/controllers/PropertyController.php?id='+sessionStorage.siteId, true);
+    //send request
+    x.send();
+    //handle ready state change event
+    x.onreadystatechange = function(){
+        //check status
+        if(x.status == 200 && x.readyState == 4){
+            var jsonData = JSON.parse(x.responseText);
+            if(jsonData.status == 0){
+                prepareCharts(jsonData);
+            }
+        }
+    }
 }
 
-function showChart(title, subtitle){
+function prepareCharts(data){
+    //data array
+    var xAxisCategories = [];
+    var seriesData = [];
+    var records = data.property.reservations;
+
+    //read data
+    records.forEach(function(item){
+        xAxisCategories.push(item.startDate);
+        seriesData.push(item.qty);
+    });
+
+    showChart(data.property.propertyName, data.property.propertyDescription, xAxisCategories, 'Quantity', seriesData);
+}
+
+function showChart(chartTitle, chartSubtitle, xAxisCategories, seriesName, seriesData){
     // Create the chart
-Highcharts.chart('chart', {
-    chart: {
-        type: 'area'
-    },
-    title: {
-        text: title,
-        align: 'left'
-    },
-    subtitle: {
-        text: subtitle,
-        align: 'left'
-    },
-
-    accessibility: {
-        announceNewData: {
-            enabled: true
-        },
-        point: {
-            valueSuffix: '%'
+    Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
+        function(){
+            Highcharts.chart('chart',{
+                chart: {
+                    zoomType: "x"
+                },
+                title: {
+                    text : chartTitle
+                },
+                subtitle: {
+                    text: document.ontouchstart === undefined ?
+                        chartSubtitle : "Pinch the chart to zoom in"
+                },
+                xAxis: {
+                    reversed: false,
+                    categories: xAxisCategories
+                },
+                yAxis: {
+                    title:{
+                        text: seriesName
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    area: {
+                        fillColor: {
+                            linearGradient: {
+                                x1: 1,
+                                y1: 0,
+                                x2: 0,
+                                y2: 1
+                            },
+                            stops: [
+                                [0, Highcharts.getOptions().colors[1]],
+                                [1, Highcharts.color(Highcharts.getOptions().colors[1]).setOpacity(0).get('rgba')]
+                            ]
+                        },
+                        marker: {
+                            radius: 2
+                        },
+                        lineWidth: 1,
+                        states: {
+                            hover: {
+                                lineWidth: 2
+                            }
+                        },
+                        threshold: null
+                    }
+                },
+                series: [{
+                    type: 'column',
+                    name: "Date",
+                    data: seriesData
+                }]
+            });
         }
-    },
-
-    plotOptions: {
-        series: {
-            dataLabels: {
-                enabled: true,
-                format: '{point.name}: {point.y:.1f}%'
-            }
-        }
-    },
-
-    tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-    },
-
-    series: [
-        {
-            name: 'Browsers',
-            colorByPoint: true,
-            data: [
-                {
-                    name: 'Chrome',
-                    y: 61.04,
-                    drilldown: 'Chrome'
-                },
-                {
-                    name: 'Safari',
-                    y: 9.47,
-                    drilldown: 'Safari'
-                },
-                {
-                    name: 'Edge',
-                    y: 9.32,
-                    drilldown: 'Edge'
-                },
-                {
-                    name: 'Firefox',
-                    y: 8.15,
-                    drilldown: 'Firefox'
-                },
-                {
-                    name: 'Other',
-                    y: 11.02,
-                    drilldown: null
-                }
-            ]
-        }
-    ],
-    drilldown: {
-        series: [
-            {
-                name: 'Chrome',
-                id: 'Chrome',
-                data: [
-                    [
-                        'v97.0',
-                        36.89
-                    ],
-                    [
-                        'v96.0',
-                        18.16
-                    ],
-                    [
-                        'v95.0',
-                        0.54
-                    ],
-                    [
-                        'v94.0',
-                        0.7
-                    ],
-                    [
-                        'v93.0',
-                        0.8
-                    ],
-                    [
-                        'v92.0',
-                        0.41
-                    ],
-                    [
-                        'v91.0',
-                        0.31
-                    ],
-                    [
-                        'v90.0',
-                        0.13
-                    ],
-                    [
-                        'v89.0',
-                        0.14
-                    ],
-                    [
-                        'v88.0',
-                        0.1
-                    ],
-                    [
-                        'v87.0',
-                        0.35
-                    ],
-                    [
-                        'v86.0',
-                        0.17
-                    ],
-                    [
-                        'v85.0',
-                        0.18
-                    ],
-                    [
-                        'v84.0',
-                        0.17
-                    ],
-                    [
-                        'v83.0',
-                        0.21
-                    ],
-                    [
-                        'v81.0',
-                        0.1
-                    ],
-                    [
-                        'v80.0',
-                        0.16
-                    ],
-                    [
-                        'v79.0',
-                        0.43
-                    ],
-                    [
-                        'v78.0',
-                        0.11
-                    ],
-                    [
-                        'v76.0',
-                        0.16
-                    ],
-                    [
-                        'v75.0',
-                        0.15
-                    ],
-                    [
-                        'v72.0',
-                        0.14
-                    ],
-                    [
-                        'v70.0',
-                        0.11
-                    ],
-                    [
-                        'v69.0',
-                        0.13
-                    ],
-                    [
-                        'v56.0',
-                        0.12
-                    ],
-                    [
-                        'v49.0',
-                        0.17
-                    ]
-                ]
-            },
-            {
-                name: 'Safari',
-                id: 'Safari',
-                data: [
-                    [
-                        'v15.3',
-                        0.1
-                    ],
-                    [
-                        'v15.2',
-                        2.01
-                    ],
-                    [
-                        'v15.1',
-                        2.29
-                    ],
-                    [
-                        'v15.0',
-                        0.49
-                    ],
-                    [
-                        'v14.1',
-                        2.48
-                    ],
-                    [
-                        'v14.0',
-                        0.64
-                    ],
-                    [
-                        'v13.1',
-                        1.17
-                    ],
-                    [
-                        'v13.0',
-                        0.13
-                    ],
-                    [
-                        'v12.1',
-                        0.16
-                    ]
-                ]
-            },
-            {
-                name: 'Edge',
-                id: 'Edge',
-                data: [
-                    [
-                        'v97',
-                        6.62
-                    ],
-                    [
-                        'v96',
-                        2.55
-                    ],
-                    [
-                        'v95',
-                        0.15
-                    ]
-                ]
-            },
-            {
-                name: 'Firefox',
-                id: 'Firefox',
-                data: [
-                    [
-                        'v96.0',
-                        4.17
-                    ],
-                    [
-                        'v95.0',
-                        3.33
-                    ],
-                    [
-                        'v94.0',
-                        0.11
-                    ],
-                    [
-                        'v91.0',
-                        0.23
-                    ],
-                    [
-                        'v78.0',
-                        0.16
-                    ],
-                    [
-                        'v52.0',
-                        0.15
-                    ]
-                ]
-            }
-        ]
-    }
-});
-
+    );
+    //refresh data
+    //setInterval('getData()', 4000);
 }

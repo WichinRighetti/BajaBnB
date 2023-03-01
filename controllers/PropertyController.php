@@ -16,7 +16,7 @@
                 //Display
                 echo json_encode(array(
                     'status' => 0,
-                    'property' => json_decode($s->toJson())
+                    'property' => json_decode($s->toJsonFull())
                 ));
             }catch(RecordNotFoundException $ex){
                 echo json_encode(array(
@@ -30,7 +30,7 @@
                 //Display
                 echo json_encode(array(
                     'status' => 0,
-                    'property' => json_decode($s->toJsonAll())
+                    'property' => json_decode($s->toJsonFull())
                 ));
             }catch(RecordNotFoundException $ex){
                 echo json_encode(array(
