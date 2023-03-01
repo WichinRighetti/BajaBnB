@@ -128,6 +128,16 @@
             ));
         }
 
+        //represent the object in JSON format only reservetion
+        public function toJsonReservations(){
+            return json_encode(array(
+                'id_reservation'=>$this->id_reservation,
+                'user'=>json_decode($this->user->toJson()),
+                'startDate'=>$this->startDate,
+                'endDate'=>$this->endDate
+            ));
+        }
+
         //get all
         public static function getAll(){
             //list

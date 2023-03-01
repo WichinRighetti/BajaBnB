@@ -11,6 +11,7 @@
     require_once($_SERVER['DOCUMENT_ROOT'].'/BajaBnB/models/user.php');
     //use class security
     require_once($_SERVER['DOCUMENT_ROOT'].'/BajaBnB/security/security.php');
+
     //check if headers were recived
     if(isset($headers['user'],$headers['password'])){
         //authenticate user

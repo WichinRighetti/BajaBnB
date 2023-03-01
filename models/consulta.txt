@@ -1,0 +1,19 @@
+use sites1;
+Select r.id_reservation, r.startDate, r.endDate, 
+                    p.id_property, p.propertyName, p.propertyDescription, p.longitude, p.latitude, p.price, p.active propertyActive,
+                    pt.id_propertyType, pt.propertyType, pt.active propertyTypeActive,
+                    c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive,
+                    u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
+                    uh.id_user, uh.name, uh.lastName, uh.phone, uh.email, uth.id_userType, uth.userType, uth.active userHTypeActive, uh.password, uh.active userHActive, 
+                    count(*) qty
+                    from Reservation r Left JOIN Property p ON r.id_property = p.id_property
+                    left Join PropertyType pt ON p.id_propertyType = pt.id_propertyType
+                    Left JOIN City c ON p.id_city = c.id_city
+                    Left JOIN State s ON c.id_state = s.id_state
+                    Left JOIN User u ON r.id_user = u.id_user
+                    Left JOIN User uh ON p.id_user = uh.id_user
+                    Left JOIN UserType ut ON u.id_userType = ut.id_userType
+                    Left JOIN UserType uth ON uh.id_userType = uth.id_userType
+                    where p.id_property = 1
+					group by MONTH(r.endDate) Order By Month(r.endDate);
+                    
