@@ -55,4 +55,7 @@ function buildPage(data){
     titulo.textContent = sites.propertyName
     var descripcion = document.getElementById('bloqueDescripcion');
     descripcion.textContent =  sites.propertyDescription;
+    var ubicacion = document.getElementById('bloqueUbicacion');
+    ubicacion.textContent = sites.city.cityName + ", "+sites.city.state.stateName;
+    
 }
