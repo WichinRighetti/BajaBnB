@@ -91,7 +91,7 @@ Insert Into UserType(userType) Values ('Huesped');
 Select * from UserType;
 
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
-('Arrendatario', 'Uno', '0446641234', 'correo1@gmail.com', 1, '123abc');
+('Arrendatario', 'Uno', '0446641234', 'correo1@gmail.com', 1, sha1('123abc'));
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
 ('Arrendatario', 'Dos', '0446641235', 'correo2@gmail.com', 1, '123abc');
 Insert Into User(name, lastName, phone, email, id_userType, password) Values 
@@ -133,3 +133,10 @@ Insert Into PropertyImages(id_property, url) Values
 Insert Into PropertyImages(id_property, url) Values 
 (5, 'Imagen5');
 Select * from PropertyImages;
+
+Insert Into Reservation(id_user, id_property, startDate, endDate) Values 
+(1, 1, '2023-03-01', '2023-03-03'),
+(1, 1, '2023-03-01', '2023-03-03'),
+(1, 1, '2023-03-01', '2023-03-03');
+Insert Into Reservation(id_user, id_property, startDate, endDate) Values 
+(1, 1, '2023-02-01', '2023-02-03');

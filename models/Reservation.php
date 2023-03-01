@@ -16,6 +16,8 @@
         private $property;
         private $startDate;
         private $endDate;
+        //
+        private $qty;
 
         //setters & getters
         public function setId_reservation($value){$this->id_reservation = $value;}
@@ -30,6 +32,9 @@
         public function getEndDate(){return $this->endDate;}
         //public function setActive($value){$this->active = $value;}
         //public function getActive(){return $this->active;}
+        //
+        public function setQty($value){$this->qty = $value;}
+        public function getQty(){return $this->qty;}
 
         //constructor
         public function __construct(){
@@ -40,6 +45,7 @@
                 $this->property = new Property();
                 $this->startDate = '';
                 $this->endDate = '';
+                $this->qty = 0;
             }
             //constructor with data from database
             if(func_num_args() == 1){
@@ -113,7 +119,17 @@
                 $this->startDate = $arguments[3];
                 $this->endDate = $arguments[4];
                 //$this->active = $arguments[5];
-
+            }
+            if(func_num_args() == 6){
+                //get arguments
+                $arguments = func_get_args();
+                //pass arguments to attibutes
+                $this->id_reservation = $arguments[0];
+                $this->user = $arguments[1];
+                $this->property = $arguments[2];
+                $this->startDate = $arguments[3];
+                $this->endDate = $arguments[4];
+                $this->qty = $arguments[5];
             }
         }
 
@@ -122,19 +138,10 @@
             return json_encode(array(
                 'id_reservation'=>$this->id_reservation,
                 'user'=>json_decode($this->user->toJson()),
-                'property'=>json_decode($this->property->toJson()),
+                //'property'=>json_decode($this->property->toJson()),
                 'startDate'=>$this->startDate,
-                'endDate'=>$this->endDate
-            ));
-        }
-
-        //represent the object in JSON format only reservetion
-        public function toJsonReservations(){
-            return json_encode(array(
-                'id_reservation'=>$this->id_reservation,
-                'user'=>json_decode($this->user->toJson()),
-                'startDate'=>$this->startDate,
-                'endDate'=>$this->endDate
+                'endDate'=>$this->endDate,
+                'qty' => $this->qty
             ));
         }
 
@@ -195,6 +202,72 @@
             $list = array();
             //get all
             foreach(self::getAll() as $item){
+                array_push($list, json_decode($item->toJson()));
+            }
+            //return list
+            return json_encode($list);
+        }
+
+        //get all
+        public static function getAllBySite($id){
+            //list
+            $list = array();
+            //get connection
+            $connection = MysqlConnection::getConnection();
+            //query
+            $query = "Select r.id_reservation, r.startDate, r.endDate, 
+                p.id_property, p.propertyName, p.propertyDescription, p.longitude, p.latitude, p.price, p.active propertyActive,
+                pt.id_propertyType, pt.propertyType, pt.active propertyTypeActive,
+                c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive,
+                u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
+                uh.id_user, uh.name, uh.lastName, uh.phone, uh.email, uth.id_userType, uth.userType, uth.active userHTypeActive, uh.password, uh.active userHActive
+                from Reservation r Left JOIN Property p ON r.id_property = p.id_property
+                left Join PropertyType pt ON p.id_propertyType = pt.id_propertyType
+                Left JOIN City c ON p.id_city = c.id_city
+                Left JOIN State s ON c.id_state = s.id_state
+                Left JOIN User u ON r.id_user = u.id_user
+                Left JOIN User uh ON p.id_user = uh.id_user
+                Left JOIN UserType ut ON u.id_userType = ut.id_userType
+                Left JOIN UserType uth ON uh.id_userType = uth.id_userType 
+                Where p.id_property = ?;";
+            //command
+            $command = $connection->prepare($query);
+            //bind parameter
+            $command->bind_param('i', $id);
+            //execute
+            $command->execute();
+            //bind results
+            $command->bind_result($id_reservation, $startDate, $endDate,
+                $id_property, $propertyName, $propertyDescription, $longitude, $latitude, $price, $propertyActive,
+                $id_propertyType, $propertyType, $propertyTypeActive,
+                $id_city, $cityName, $activeCity, $id_state, $stateName, $activeState,
+                $id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive,
+                $id_userH, $nameH, $lastnameH, $phoneH, $emailH, $id_userHType, $userHType, $userHTypeActive, $passwordH, $userHActive);
+            //fetch data
+            while($command->fetch()){
+                $state = new State($id_state, $stateName, $activeState);
+                $userType = new UserType($id_userType, $userType, $userTypeActive);
+                $userHType = new UserType($id_userHType, $userHType, $userHTypeActive);
+                $propertyType = new PropertyType($id_propertyType, $propertyType, $propertyTypeActive);
+                $city = new City($id_city, $cityName, $state, $activeCity);
+                $user = new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive);
+                $userH = new User($id_userH, $nameH, $lastnameH, $phoneH, $emailH, $userHType, $passwordH, $userHActive);
+                $property = new Property($id_property, $propertyName, $propertyDescription, $propertyType, $city, $userH, $longitude, $latitude, $price, $propertyActive);
+                array_push($list, new Reservation($id_reservation, $user, $property, $startDate, $endDate));
+            }
+            //close command
+            mysqli_stmt_close($command);
+            //close connection
+            $connection->close();
+            //return $list
+            return $list;
+        }
+
+        public static function getAllBySiteJson($id){
+            //list
+            $list = array();
+            //get all
+            foreach(self::getAllBySite($id) as $item){
                 array_push($list, json_decode($item->toJson()));
             }
             //return list

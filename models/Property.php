@@ -4,10 +4,10 @@
     require_once('exceptions/recordNotFoundException.php');
     require_once('PropertyType.php');
     require_once('City.php');
+    require_once('Reservation.php');
     require_once('State.php');
     require_once('User.php');
     require_once('UserType.php');
-    require_once('Reservation.php');
 
     //Calse name
     Class Property{
@@ -145,6 +145,30 @@
             ));
         }
 
+        //represent the object in JSON format
+        public function toJsonFull(){
+            //list
+            $recordsList = array();
+
+            foreach(self::getReservations() as $item){
+                array_push($recordsList, json_decode($item->toJson()));
+            }
+
+            return json_encode(array(
+                'id_property' => $this->id_property,
+                'propertyName' => $this->propertyName,
+                'propertyDescription' => $this->propertyDescription,
+                'propertyType' => json_decode($this->PropertyType->toJson()),
+                'city' => json_decode($this->City->toJson()),
+                'user' => json_decode($this->User->toJson()),
+                'longitude' => $this->longitude,
+                'latitude' => $this->latitude,
+                'price' => $this->price,
+                'active' => $this->active,
+                'reservations' => $recordsList
+            ));
+        }
+
         //get all
         public static function getAll(){
             //list
@@ -200,28 +224,60 @@
             return json_encode($list);
         }
 
-        //represent the object with records in JSON format
-        public function toJsonAll(){
-            $reservationList = array();
-
-            foreach(Reservation::getAll() as $item){
-                array_push($reservationList, json_decode($item->toJsonReservations()));
+        //get all
+        public function getReservations(){
+            //list
+            $list = array();
+            //get connection
+            $connection = MysqlConnection::getConnection();
+            //query
+            $query = "Select r.id_reservation, r.startDate, r.endDate, 
+                p.id_property, p.propertyName, p.propertyDescription, p.longitude, p.latitude, p.price, p.active propertyActive,
+                pt.id_propertyType, pt.propertyType, pt.active propertyTypeActive,
+                c.id_city, c.cityName, c.active cityActive, s.id_state, s.stateName, s.active stateActive,
+                u.id_user, u.name, u.lastName, u.phone, u.email, ut.id_userType, ut.userType, ut.active userTypeActive, u.password, u.active userActive,
+                uh.id_user, uh.name, uh.lastName, uh.phone, uh.email, uth.id_userType, uth.userType, uth.active userHTypeActive, uh.password, uh.active userHActive, 
+                COUNT(*) Qty
+                from Reservation r Left JOIN Property p ON r.id_property = p.id_property
+                left Join PropertyType pt ON p.id_propertyType = pt.id_propertyType
+                Left JOIN City c ON p.id_city = c.id_city
+                Left JOIN State s ON c.id_state = s.id_state
+                Left JOIN User u ON r.id_user = u.id_user
+                Left JOIN User uh ON p.id_user = uh.id_user
+                Left JOIN UserType ut ON u.id_userType = ut.id_userType
+                Left JOIN UserType uth ON uh.id_userType = uth.id_userType 
+                Where p.id_property = ? Group By MONTH(r.endDate) Order By Month(r.endDate)";
+            //command
+            $command = $connection->prepare($query);
+            //bind parameter
+            $command->bind_param('i', $this->id_property);
+            //execute
+            $command->execute();
+            //bind results
+            $command->bind_result($id_reservation, $startDate, $endDate,
+                $id_property, $propertyName, $propertyDescription, $longitude, $latitude, $price, $propertyActive,
+                $id_propertyType, $propertyType, $propertyTypeActive,
+                $id_city, $cityName, $activeCity, $id_state, $stateName, $activeState,
+                $id_user, $name, $lastname, $phone, $email, $id_userType, $userType, $userTypeActive, $password, $userActive,
+                $id_userH, $nameH, $lastnameH, $phoneH, $emailH, $id_userHType, $userHType, $userHTypeActive, $passwordH, $userHActive, $qty);
+            //fetch data
+            while($command->fetch()){
+                $state = new State($id_state, $stateName, $activeState);
+                $userType = new UserType($id_userType, $userType, $userTypeActive);
+                $userHType = new UserType($id_userHType, $userHType, $userHTypeActive);
+                $propertyType = new PropertyType($id_propertyType, $propertyType, $propertyTypeActive);
+                $city = new City($id_city, $cityName, $state, $activeCity);
+                $user = new User($id_user, $name, $lastname, $phone, $email, $userType, $password, $userActive);
+                $userH = new User($id_userH, $nameH, $lastnameH, $phoneH, $emailH, $userHType, $passwordH, $userHActive);
+                $property = new Property($id_property, $propertyName, $propertyDescription, $propertyType, $city, $userH, $longitude, $latitude, $price, $propertyActive);
+                array_push($list, new Reservation($id_reservation, $user, $property, $startDate, $endDate, $qty));
             }
-
-            return json_encode(array(
-                'id_property' => $this->id_property,
-                'propertyName' => $this->propertyName,
-                'propertyDescription' => $this->propertyDescription,
-                'propertyType' => json_decode($this->PropertyType->toJson()),
-                'city' => json_decode($this->City->toJson()),
-                'user' => json_decode($this->User->toJson()),
-                'longitude' => $this->longitude,
-                'latitude' => $this->latitude,
-                'price' => $this->price,
-                'active' => $this->active,
-                'records' => $reservationList
-            ));
+            //close command
+            mysqli_stmt_close($command);
+            //close connection
+            $connection->close();
+            //return $list
+            return $list;
         }
     }
-    
 ?>
